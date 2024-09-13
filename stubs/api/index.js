@@ -37,4 +37,5 @@ router.get('/statistics', (req, res) => {
     res.json({ totalWorkouts, totalDuration });
 });
 
+
 module.exports = router;
