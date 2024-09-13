@@ -17,7 +17,7 @@ module.exports = {
   },
   /* use https://kc.admin.inno-js.ru/ to create config, navigations and features */
   navigations: {
-    "sdk-project.main": "/sdk-project",
+    "sdk.main": "/sdk",
   },
   features: {
     "sdk-project": {
