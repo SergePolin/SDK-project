@@ -20,11 +20,11 @@ module.exports = {
     "sdk.main": "/sdk",
   },
   features: {
-    "sdk-project": {
+    "sdk": {
       // add your features here in the format [featureName]: { value: string }
     },
   },
   config: {
-    "sdk-project.api": "/api",
+    "sdk.api": "/api",
   },
 };
