@@ -7,13 +7,14 @@ export default () => <App />;
 
 let rootElement: ReactDOM.Root;
 
-export const mount = (Сomponent, element = document.getElementById("app")) => {
-  const rootElement = ReactDOM.createRoot(element);
-  rootElement.render(<Сomponent />);
+export const mount = (Component, element = document.getElementById("app")) => {
+  rootElement = ReactDOM.createRoot(element);
+  rootElement.render(<Component />);
 
   if (module.hot) {
     module.hot.accept("./app", () => {
-      rootElement.render(<Сomponent />);
+      const NextApp = require("./app").default;
+      rootElement.render(<NextApp />);
     });
   }
 };
