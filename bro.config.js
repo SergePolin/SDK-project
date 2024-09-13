@@ -6,6 +6,14 @@ module.exports = {
     output: {
       publicPath: `/static/${pkg.name}/${process.env.VERSION || pkg.version}/`,
     },
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: ["style-loader", "css-loader"],
+        },
+      ],
+    },
   },
   /* use https://kc.admin.inno-js.ru/ to create config, navigations and features */
   navigations: {
