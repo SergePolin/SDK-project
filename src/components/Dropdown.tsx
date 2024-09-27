@@ -4,7 +4,7 @@ import ArrowUp from "../assets/arrow_up.svg";
 import "../styles/Dropdown.scss";
 import "../styles/global.scss";
 
-const Dropdown = ({title, options}) => {
+const Dropdown = ({title, options, onChoose}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(title);
 
@@ -14,6 +14,7 @@ const Dropdown = ({title, options}) => {
 
   const handleOptionClick = (option) => {
     setSelectedItem(option);
+    onChoose(option);
     setIsOpen(false);
   };
 

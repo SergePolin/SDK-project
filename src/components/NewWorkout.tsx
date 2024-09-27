@@ -15,13 +15,15 @@ import Plus from "../assets/plus.svg";
 import "../styles/global.scss";
 import "../styles/NewWorkout.scss";
 import AddExercise from "./AddExercise";
-import { exercise, tag } from "../types";
+import { exercise, tag, WorkoutType } from "../types";
 
+const tags : tag[] = [{icon: JumpingRope, title: "Jumping rope"}, {icon: Weights, title: "Weights"}, {icon: Yoga, title: "Yoga"}, {icon: Stretching, title: "Stretching"}, {icon: Cardio, title: "Cardio"}, {icon: Strength, title: "Strength"}, {icon: FullBody, title: "Full body"}, {icon: Arms, title: "Arms"}, {icon: Legs, title: "Legs"}, {icon: Chest, title: "Chest"}, {icon: ABS, title: "Abs"}, {icon: Back, title: "Back"}];
 
 
 
 const NewWorkout: React.FC = (isInTraining : boolean = false) => {
-    const tags : tag[] = [{icon: JumpingRope, title: "Jumping rope"}, {icon: Weights, title: "Weights"}, {icon: Yoga, title: "Yoga"}, {icon: Stretching, title: "Stretching"}, {icon: Cardio, title: "Cardio"}, {icon: Strength, title: "Strength"}, {icon: FullBody, title: "Full body"}, {icon: Arms, title: "Arms"}, {icon: Legs, title: "Legs"}, {icon: Chest, title: "Chest"}, {icon: ABS, title: "Abs"}, {icon: Back, title: "Back"}];
+    const [workout, setWorkout] = useState<WorkoutType>({} as WorkoutType);
+
     let [exercises, setExercises] = useState<exercise[]>([{
         title: "Bicep curl",
         repsOrDuration: 15,
@@ -33,35 +35,42 @@ const NewWorkout: React.FC = (isInTraining : boolean = false) => {
         isTimeBased: false,
         weight: 4
       }]);
-    console.log(typeof(JumpingRope));
+
     const [isAddExerciseWindowOpen, setIsAddExerciseWindowOpen] = useState<boolean>(false);
     const [savedAsCustom, setSavedAsCustom] = useState<boolean>(false);
     return (<div className="card align-end">
         <h3 className="width-fill">New workout</h3>
-        <input className="input width-fill" placeholder="Title"/>
+        <input className="input width-fill" placeholder="Title" value={workout.title} onChange={(e) => setWorkout(prev => {return {...prev, title: e.target.value}})}/>
         <div className="div-horizontal-20">
             <div className="div-vertical-16 width-tags">
                 <h4>Select the type of workout, the equipment, and the muscle groups.</h4>
                 <div className="tags-chosen">
-                {tags.map( tag => { 
-                        return (
-                            <img className="tag-img" src={tag.icon} alt={tag.title}/>
-                        );
-                    })}
+                {workout.tags && workout.tags.map( tag => <img className="tag-img" src={tag.icon} alt={tag.title} onClick={() => setWorkout(prev => {return {...prev, tags: prev.tags.filter(prevTag => prevTag.title !== tag.title)}})}/>
+                    )}
                 </div>
                 <div className="tags-div">
-                    {tags.map( tag => { 
-                        return (<div className="tag">
+                {tags
+                    .filter(tag => !workout.tags?.some(selectedTag => selectedTag.title === tag.title))
+                    .map(tag => { 
+                        return (
+                        <div 
+                            key={tag.title} 
+                            className="tag" 
+                            onClick={() => setWorkout(prev => {
+                            return { ...prev, tags: [...(prev?.tags || []), tag] };
+                            })}
+                        >
                             <img className="tag-img" src={tag.icon} alt={tag.title}/>
                             <span className="tag-title">{tag.title}</span>
-                        </div>);
+                        </div>
+                        );
                     })}
                 </div>
             </div>
             <div className="div-vertical-16 width-tags">
                 <h4>Exercises</h4>
                 <table className="div-vertical-8 exercise-table">
-                    {exercises.map((exercise, index) => {
+                    {workout.exercises?.map((exercise, index) => {
                         return (<tr>
                             <td className="td1">{20}.</td>
                             <td className="td2">{exercise.title}</td>
@@ -83,8 +92,8 @@ const NewWorkout: React.FC = (isInTraining : boolean = false) => {
                 <p className="hint">Do you want to repeat this workout later?</p>
                 <button className="button-outlined">Save as custom workout</button>
             </div>}
-            <button className="button-filled-big">Save</button>
-        </div> : <button className="button-filled-big">Save</button>}
+            <button className="button-filled">Save</button>
+        </div> : <button className="button-filled">Save</button>}
     </div>);
 };
 

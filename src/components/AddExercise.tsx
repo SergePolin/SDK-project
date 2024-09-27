@@ -33,7 +33,7 @@ export default function AddExercise({setIsAddExerciseWindowOpen, setExercises}: 
             <img src={CheckBox} alt="choose"/>
             <p>Weights</p>
         </div>}
-        <button className="button-filled-small">
+        <button className="button-filled">
             Add
         </button>
     </div>);

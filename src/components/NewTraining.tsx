@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import "../styles/NewTraining.scss";
 import "../styles/global.scss";
 import DateIcon from "../assets/date_icon.svg";
@@ -15,52 +15,92 @@ import Dropdown from "./Dropdown";
 import NewWorkout from "./NewWorkout";
 import SegmentedControl from "./SegmentControl";
 import DatePick from "./DatePicker";
+import { emojiType, TrainingType, WorkoutType } from "../types";
+import { FunnelChart } from "recharts";
+
+const emojiesList : emojiType[] = [
+  {src: SmileFace, title: "happy"},
+  {src: BicepEmoji, title: "strong"},
+  {src: AnxiousFace, title: "anoxious"},
+  {src: FaceWithHearts, title: "fuzzy"},
+  {src: CryingFace, title: "crying"},
+  {src: SpiralEyesFace, title: "dizzy"},
+  {src: HotFace, title: "hot"}];
+
+  const options = [
+    "Option 1",
+    "Option 2",
+    "Option 3",
+    "Option 4",
+    "Option 5",
+    "Option 6",
+    "Option 7",
+    "Option 8",
+    "Option 9",
+    "Option 10"
+  ];
+
+
+
 
 const NewTraining: React.FC = () => {
-    const options = [
-        "Option 1",
-        "Option 2",
-        "Option 3",
-        "Option 4",
-        "Option 5",
-        "Option 6",
-        "Option 7",
-        "Option 8",
-        "Option 9",
-        "Option 10"
-      ];
+    const currentDate = new Date();
+    const [training, setTraining] = useState<TrainingType>({dayOfWeek: currentDate.toLocaleDateString('en-EN', { weekday: 'long' }), date: `${("0" + currentDate.getUTCDate()).slice(-2)}.${("0" + (currentDate.getUTCMonth() + 1)).slice(-2)}.${currentDate.getUTCFullYear()}`} as TrainingType);
+    
 
     type typeWorkout = "saved" | "custom";
     const [workoutType, setWorkoutType] = useState<typeWorkout>("saved");
+    const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
+
+    function handleDateChoose(chosenDate: Date){
+      setTraining(prev => {return {...prev, dayOfWeek: chosenDate.toLocaleDateString('en-EN', { weekday: 'long' }), date: `${("0" + chosenDate.getUTCDate()).slice(-2)}.${("0" + (chosenDate.getUTCMonth() + 1)).slice(-2)}.${chosenDate.getUTCFullYear()}`}});
+      setOpenDatePicker(false);
+    }
+
+    function handleWorkoutChoose(workoutChosen: string){
+      setTraining(prev => {return {...prev, workout: {...prev.workout, title: workoutChosen} as WorkoutType}});
+    }
+
+    function checkInput(){
+      return true;
+    }
+
+    function handleSumbit(e : FormEvent){
+      e.preventDefault();
+      if (checkInput){
+        console.log(training);
+        console.log("submitted");
+      }
+    }
 
     return (
-        <div className="div-horizontal-20">
+        <form className="div-horizontal-20" onSubmit={handleSumbit}>
         <div className="div-vertical-20">
           <div className="card">
             <h3 className="">Create new training session</h3>
             <div className="div-vertical-16">
-              <p>Monday</p>
+              <p>{training.dayOfWeek}</p>
               <div className="div-horizontal-4">
-                <h4>27.09.2024</h4>
-                <img src={DateIcon} alt="Date picker"/>
+                <h4>{training.date}</h4>
+                <img style={{cursor: 'pointer'}} src={DateIcon} alt="Date picker" onClick={() => setOpenDatePicker( prev =>!prev)}/>
               </div>
             </div>
-            <div className="div-horizontal-32 align_center">
-              <div className="div-horizontal-8 align_center">
+            <div className="div-horizontal-32 align-center">
+              <div className="div-horizontal-8 align-center">
               <img src={CaloriesIcon} alt="Calories"/>
-                <div className="div-horizontal-4 align_center">
-                  <input className="input-68" type="number" min={0} max={10000} placeholder="336"></input>
+                <div className="div-horizontal-4 align-center">
+                  <input className="input-68" type="number" onChange={(e) => setTraining(prev => {return {...prev, calories: e.target.valueAsNumber}})} value={training.calories} min={0} max={10000} placeholder="---"></input>
                   <p>calories</p>
                 </div>
               </div>
-              <div className="div-horizontal-8 align_center">
+              <div className="div-horizontal-8 align-center">
                 <img src={DurationIcon} alt="Duration"/>
-                <div className="div-horizontal-4 align_center">
-                  <input className="input-40" type="number" min={0} max={23} placeholder="1"></input>
+                <div className="div-horizontal-4 align-center">
+                  <input className="input-40" type="number" onChange={(e) => setTraining(prev => {return {...prev, hours: e.target.valueAsNumber}})} value={training.hours} min={0} max={23} placeholder="--"></input>
                   <p>h</p>
                 </div>
-                <div className="div-horizontal-4 align_center">
-                  <input className="input-40" type="number" min={0} max={59} placeholder="30"></input>
+                <div className="div-horizontal-4 align-center">
+                  <input className="input-40" type="number" onChange={(e) => setTraining(prev => {return {...prev, minutes: e.target.valueAsNumber}})} value={training.minutes} min={0} max={59} placeholder="--"></input>
                   <p>min</p>
                 </div>
               </div>
@@ -68,39 +108,25 @@ const NewTraining: React.FC = () => {
               <div className="div-vertical-16">
                 <h4>How do you feel?</h4>
                 <div className="emojies">
-                  <div className="emoji">
-                  <img src={SmileFace} height={32} width={32} alt="happy"/>
-                  </div>
-                  <div className="emoji">
-                  <img src={BicepEmoji} alt="strong"/>
-                  </div>
-                  <div className="emoji">
-                  <img src={AnxiousFace} alt="anoxious"/>
-                  </div>
-                  <div className="emoji">
-                  <img src={FaceWithHearts} alt="fuzzy"/>
-                  </div>
-                  <div className="emoji">
-                  <img src={CryingFace} alt="crying"/>
-                  </div>
-                  <div className="emoji">
-                  <img src={SpiralEyesFace} alt="dizzy"/>
-                  </div>
-                  <div className="emoji">
-                  <img src={HotFace} alt="hot"/>
-                  </div>
+                  {emojiesList.map(item => <div key={item.title} className={training.emoji === item.title ? "emoji chosen" : "emoji"}>
+                  <img src={item.src} alt={item.title} onClick={()=> setTraining(prev => {return {...prev, emoji: item.title}})}/>
+                  </div>)}
                 </div>
-                <textarea  className="textarea" placeholder="Here you can describe your feelings and thoutghts..." />
+                <textarea className="textarea" onChange={(e) => setTraining(prev => {return {...prev, feelings: e.target.value}})} value={training.feelings} placeholder="Here you can describe your feelings and thoutghts..." />
               </div>
               <SegmentedControl option1="Saved workout" option2="Custom training" onChange1={() => setWorkoutType("saved")} onChange2={() => setWorkoutType("custom")}/>
+              <h4>{training.workout?.title}</h4>
           </div>
-          <button className="button-filled-big width-fill ">Save training session</button>
+          <button type="submit" className="button-filled width-fill">Save training session</button>
         </div>
-        <div className="card" style={{height: '240px'}}><DatePick/></div>
         
-        {workoutType === "saved" && <Dropdown title="Choose workout" options={options} />}
-        {workoutType === "custom" && <NewWorkout/>}
-      </div>
+        <div className="div-vertical-20">
+          {openDatePicker && <DatePick onDateChoose={handleDateChoose}/>}
+          {workoutType === "saved" && <Dropdown title="Choose workout" options={options} onChoose={handleWorkoutChoose}/>}
+          {workoutType === "custom" && <NewWorkout/>}
+        </div>
+        
+      </form>
 
     );
 };
