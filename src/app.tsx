@@ -1,34 +1,60 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import WorkoutList from "./components/WorkoutList";
-import DayPlanner from "./components/DayPlanner";
-import Reports from "./components/Reports";
-import Statistics from "./components/Statistics";
-import { AppContainer, NavBar, NavLink, ContentArea } from "./styles/shared";
-import NewTraining from "./components/NewTraining";
+import React, { lazy, Suspense } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  NavLink,
+} from "react-router-dom";
 
+const WorkoutList = lazy(() => import("./components/WorkoutList"));
+const NewTraining = lazy(() => import("./components/NewTraining"));
+const Reports = lazy(() => import("./components/Reports"));
+import "./styles/Nav.scss";
 
 const App: React.FC = () => {
   return (
     <Router>
-        <NavBar>
-          <NavLink to="/workouts">Workouts</NavLink>
-          <NavLink to="/newTraining">New Training</NavLink>
-          <NavLink to="/reports">Reports</NavLink>
-          <NavLink to="/statistics">Statistics</NavLink>
-        </NavBar>
-        <Routes>
-          <Route path="/workouts" element={<WorkoutList />} />
-          <Route path="/newTraining" element={<NewTraining />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/statistics" element={<Statistics />} />
-          <Route path="/sdk" element={<WorkoutList />} />
-        </Routes>
+      <div className="app-container">
+        <div className="nav-container">
+          <div className="logo">SPORT DIGITAL KEEPER</div>
+          <div className="nav-elements">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "nav-element active" : "nav-element"
+              }
+              to="/"
+            >
+              Dashboard
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "nav-element active" : "nav-element"
+              }
+              to="/sdk/newTraining"
+            >
+              New Training
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "nav-element active" : "nav-element"
+              }
+              to="/sdk/reports"
+            >
+              Workouts
+            </NavLink>
+          </div>
+        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/sdk/newTraining" element={<NewTraining />} />
+            <Route path="/sdk/reports" element={<Reports />} />
+            <Route path="/sdk" element={<WorkoutList />} />
+            <Route path="/" element={<WorkoutList />} />
+          </Routes>
+        </Suspense>
+      </div>
     </Router>
-
-    // <div>
-    //   <h1>Hello World</h1>
-    // </div>
   );
 };
 

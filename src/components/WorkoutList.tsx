@@ -1,78 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { Workout } from "../types";
-import { fetchWorkouts, createWorkout } from "../services/api";
-import { PageTitle, Card, Button, Input } from "../styles/shared";
-import styled from "styled-components";
+import React from "react";
+import Calendar from "./Calendar";
+import ProgressCircle from "./ProgressCircle";
+import ActivityChart from "./ActivityChart";
+import Stats from "./Stats";
+import "../styles/dashboard.scss";
 
-const WorkoutCard = styled(Card)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 30px;
-`;
-
-const WorkoutList: React.FC = () => {
-  const [workouts, setWorkouts] = useState<Workout[]>([]);
-  const [newWorkout, setNewWorkout] = useState({ name: "", duration: 0 });
-
-  useEffect(() => {
-    fetchWorkouts().then((response) => setWorkouts(response.data));
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const workout: Workout = {
-      ...newWorkout,
-      exercises: [],
-      id: "",
-    };
-    const response = await createWorkout(workout);
-    setWorkouts([...workouts, response.data]);
-    setNewWorkout({ name: "", duration: 0 });
-  };
+function WorkoutList() {
+  const activityData = [32, 20, 25, 15, 28, 22, 26];
 
   return (
-    <div>
-      <PageTitle>Custom Workouts</PageTitle>
-      {workouts.map((workout) => (
-        <WorkoutCard key={workout.id}>
-          <h3>{workout.name}</h3>
-          <p>{workout.duration} minutes</p>
-        </WorkoutCard>
-      ))}
-      <Form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Workout name"
-          value={newWorkout.name}
-          onChange={(e) =>
-            setNewWorkout({ ...newWorkout, name: e.target.value })
-          }
+    <div className="dashboard">
+      <div className="dashboard-left">
+        <Calendar />
+        <button className="new-training-btn">New training session</button>
+        <Stats
+          items={[
+            { value: 50, label: "Workouts completed" },
+            { value: 15000, label: "Calories burned", unit: "kcal" },
+          ]}
         />
-        <Input
-          type="number"
-          placeholder="Duration (minutes)"
-          value={newWorkout.duration}
-          onChange={(e) =>
-            setNewWorkout({ ...newWorkout, duration: parseInt(e.target.value) })
-          }
-        />
-        <Button type="submit">Add Workout</Button>
-      </Form>
+      </div>
+      <div className="dashboard-right">
+        <div className="progress-circles">
+          <ProgressCircle
+            activities={[
+              { type: "Stretching", value: 20, color: "#d94535" },
+              { type: "Cardio", value: 30, color: "#d94535" },
+              { type: "Strength", value: 40, color: "#d94535" },
+              { type: "Yoga", value: 15, color: "#d94535" },
+            ]}
+            total={40}
+            period="Monthly"
+          />
+        </div>
+        <div className="activity-section">
+          <div className="activity-header">
+            <h2>Activity</h2>
+            <select>
+              <option>Monthly</option>
+              <option>Weekly</option>
+            </select>
+          </div>
+          <ActivityChart data={activityData} />
+          <div className="weekdays">
+            <span>M</span>
+            <span>T</span>
+            <span>W</span>
+            <span>T</span>
+            <span>F</span>
+            <span>S</span>
+            <span>S</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default WorkoutList;

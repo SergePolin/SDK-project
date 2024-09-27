@@ -1,34 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Day, Workout } from "../types";
 import { fetchDays, fetchWorkouts } from "../services/api";
-import { PageTitle, Card } from "../styles/shared";
-import styled from "styled-components";
-
-const ReportCard = styled(Card)`
-  h3 {
-    color: #4a90e2;
-    margin-bottom: 10px;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    margin-bottom: 5px;
-  }
-
-  @media (max-width: 768px) {
-    h3 {
-      font-size: 1.2rem;
-    }
-
-    li {
-      font-size: 0.9rem;
-    }
-  }
-`;
+import ProgressCircle from "./ProgressCircle";
 
 const Reports: React.FC = () => {
   const [days, setDays] = useState<Day[]>([]);
@@ -44,19 +17,28 @@ const Reports: React.FC = () => {
     return workout ? workout.name : "Unknown workout";
   };
 
+  const activities = [
+    { type: "Stretching", value: 20, color: "#FF6B6B" },
+    { type: "Cardio", value: 30, color: "#4ECDC4" },
+    { type: "Strength", value: 40, color: "#45B7D1" },
+    { type: "Yoga", value: 15, color: "#FFA07A" },
+  ];
+
+  const totalHours = activities.reduce(
+    (sum, activity) => sum + activity.value,
+    0
+  );
+
   return (
-    <div>
-      <PageTitle>Workout Reports</PageTitle>
-      {days.map((day) => (
-        <ReportCard key={day.date}>
-          <h3>{day.date}</h3>
-          <ul>
-            {day.workouts.map((workoutId) => (
-              <li key={workoutId}>{getWorkoutName(workoutId)}</li>
-            ))}
-          </ul>
-        </ReportCard>
-      ))}
+    <div className="reports">
+      {activities.length > 0 && (
+        <ProgressCircle
+          activities={activities}
+          total={totalHours}
+          period="Monthly"
+        />
+      )}
+      {/* Other report components */}
     </div>
   );
 };
