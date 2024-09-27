@@ -5,31 +5,30 @@ import DayPlanner from "./components/DayPlanner";
 import Reports from "./components/Reports";
 import Statistics from "./components/Statistics";
 import { AppContainer, NavBar, NavLink, ContentArea } from "./styles/shared";
+import NewTraining from "./components/NewTraining";
+
 
 const App: React.FC = () => {
   return (
-    // <Router>
-    //   <AppContainer>
-    //     <NavBar>
-    //       <NavLink to="/workouts">Workouts</NavLink>
-    //       <NavLink to="/planner">Planner</NavLink>
-    //       <NavLink to="/reports">Reports</NavLink>
-    //       <NavLink to="/statistics">Statistics</NavLink>
-    //     </NavBar>
-    //     <ContentArea>
-    //       <Routes>
-    //         <Route path="/workouts" element={<WorkoutList />} />
-    //         <Route path="/planner" element={<DayPlanner />} />
-    //         <Route path="/reports" element={<Reports />} />
-    //         <Route path="/statistics" element={<Statistics />} />
-    //         <Route path="/sdk" element={<WorkoutList />} />
-    //       </Routes>
-    //     </ContentArea>
-    //   </AppContainer>
-    // </Router>
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <Router>
+        <NavBar>
+          <NavLink to="/workouts">Workouts</NavLink>
+          <NavLink to="/newTraining">New Training</NavLink>
+          <NavLink to="/reports">Reports</NavLink>
+          <NavLink to="/statistics">Statistics</NavLink>
+        </NavBar>
+        <Routes>
+          <Route path="/workouts" element={<WorkoutList />} />
+          <Route path="/newTraining" element={<NewTraining />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/statistics" element={<Statistics />} />
+          <Route path="/sdk" element={<WorkoutList />} />
+        </Routes>
+    </Router>
+
+    // <div>
+    //   <h1>Hello World</h1>
+    // </div>
   );
 };
 

@@ -1,0 +1,163 @@
+@import "./variables.scss";
+
+body{
+    background-color: $color-background;
+    width: 100%;
+}
+
+#app{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 128px;
+}
+
+.div-horizontal-20{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.div-horizontal-32{
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+}
+
+.div-horizontal-16{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.div-horizontal-8{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.div-horizontal-4{
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.div-vertical-20{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+
+.div-vertical-16{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.div-vertical-8{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.align-center{
+    align-items: center;
+}
+
+.align-end{
+    align-items: flex-end;
+}
+
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    margin: 0;
+    border-radius: 32px;
+    background-color: $color-white;
+}
+
+
+h3 {
+    font-size: 24px;
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    color: $color-dark;
+    margin: 0;
+    padding: 0;
+}
+
+h4 {
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    color: $color-dark;
+    margin: 0;
+    padding: 0;
+}
+
+h5 {
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    color: $color-dark;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    color: $color-dark;
+    margin: 0;
+    padding: 0;
+}
+
+span {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    color: $color-dark;
+    margin: 0;
+    padding: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+
+.button-filled-big{
+    border: 1px solid $color-accent;
+    border-radius: 32px;
+    padding: 8px 16px;
+    background-color: $color-accent;
+    align-items: center;
+    width: fit-content;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    color: $color-white;
+    height: fit-content;
+    text-align: center;
+}
+
+.width-fill {
+    width: 100%;
+}
