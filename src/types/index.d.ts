@@ -36,6 +36,30 @@ export interface exercise{
   weight?: number;
 }
 
+export interface WorkoutType{
+  id: string;
+  title: string;
+  tags: tag[];
+  exercises: exercise[];
+}
+
+export interface TrainingType{
+  id: string;
+  dayOfWeek: string;
+  date: string;
+  calories: number;
+  hours: number;
+  minutes: number;
+  emoji: string;
+  feelings: string;
+  workout: WorkoutType;
+}
+
+export interface emojiType{
+  src: string;
+  title: string;
+}
+
 export interface AddExerciseProps{
   setIsAddExerciseWindowOpen: Dispatch<React.SetStateAction<boolean>>;
   setExercises: Dispatch<SetStateAction<exercise[]>>;
