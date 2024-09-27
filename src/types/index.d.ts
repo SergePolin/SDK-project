@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface Workout {
   id: string;
   name: string;
@@ -20,4 +22,21 @@ export interface Statistics {
   totalWorkouts: number;
   totalDuration: number;
   // Add more fields as needed
+}
+
+export interface tag{
+  icon: any;
+  title: string;
+}
+
+export interface exercise{
+  title: string;
+  repsOrDuration: number;
+  isTimeBased: boolean;
+  weight?: number;
+}
+
+export interface AddExerciseProps{
+  setIsAddExerciseWindowOpen: Dispatch<React.SetStateAction<boolean>>;
+  setExercises: Dispatch<SetStateAction<exercise[]>>;
 }

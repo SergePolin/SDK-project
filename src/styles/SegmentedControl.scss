@@ -1,0 +1,52 @@
+@import "./variables.scss";
+
+.segmented-control {
+    border-radius: 32px;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+
+    input[type="radio"] {
+      display: none;
+    }
+  
+    label {
+      cursor: pointer;
+      background-color: $color-white;
+      transition: background-color 0.5s, color 0.5s;
+      border: 1px solid $color-accent;
+      font-size: 16px;
+      font-weight: 400;
+      font-family: 'Lato', sans-serif;
+      color: $color-dark;
+      margin: 0;
+      text-align: center;
+      line-height: 13px;
+
+  
+      &.active {
+        background-color: $color-accent;
+        color: $color-white;
+      }
+    }
+    .small{
+      padding: 8px 16px;
+      width: 32px;
+    }
+    
+    .big{
+      padding: 16px;
+    }
+
+    .left{
+      border-top-left-radius: 32px;
+      border-bottom-left-radius: 32px;
+  }
+
+  .right{
+      border-top-right-radius: 32px;
+      border-bottom-right-radius: 32px;
+  }
+  }
+
+  

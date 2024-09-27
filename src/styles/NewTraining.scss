@@ -1,0 +1,84 @@
+@import "./variables.scss";
+
+.emojies{
+    display: flex;
+    flex-direction: row;
+    padding: 4px 16px;
+    justify-content: space-between;
+    background-color: $color-background;
+    border-radius: 32px;
+}
+
+.emoji{
+    box-sizing: border-box;
+    height: 40px;
+    width: 40px;
+    padding: 4px;
+    margin: 0;
+}
+
+
+.emoji.chosen{
+    background-color: $color-white;
+}
+
+.input-40{
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    color: $color-dark;
+    margin: 0;
+    padding: 0 4px;
+    height: 24px;
+    width: 40px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid $color-dark-50;
+    text-align: center;
+    line-height: 24px;
+    background-color: transparent;
+}
+
+.input-68{
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    color: $color-dark;
+    margin: 0;
+    padding: 0 4px;
+    height: 24px;
+    width: 68px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid $color-dark-50;
+    text-align: center;
+    line-height: 24px;
+    background-color: transparent;
+}
+
+.textarea{
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    color: $color-dark;
+    margin: 0;
+    padding: 8px;
+    height: 120px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid $color-dark-50;
+    resize: none;
+}
+
+
+.input-40:hover, .input-68:hover, .textarea:hover{
+    outline: none;
+    border: 1px solid $color-accent-50;
+}
+
+
+.input-40:focus, .input-68:focus, .textarea:focus{
+    outline: none;
+    border: 1px solid $color-accent;
+}

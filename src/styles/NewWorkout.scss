@@ -1,0 +1,129 @@
+@import "./variables.scss";
+
+.input{
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    color: $color-dark;
+    margin: 0;
+    padding: 8px;
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid $color-dark-50;
+    line-height: 40px;
+    background-color: transparent;
+}
+
+.input:hover{
+    outline: none;
+    border: 1px solid $color-accent-50;
+}
+
+
+.input:focus{
+    outline: none;
+    border: 1px solid $color-accent;
+}
+
+.width-tags{
+    width: 412px;
+
+    .tags-chosen{
+        display: inline-grid;
+        row-gap: 8px;
+        column-gap: 8px;
+        grid-template-columns: repeat(7, 1fr);
+        max-width: 412px;
+        padding: 0 8px;
+    
+        .tag-img{
+            height: 40px;
+            width: 40px;
+        }
+    }
+    
+    
+    
+    .tags-div{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    
+        .tag {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap:8px;
+            padding: 4px 8px;
+            
+    
+            .tag-img{
+                height: 40px;
+                width: 40px;
+            }
+    
+            .tag-title{
+                display: inline;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .exercise-table{
+        font-size: 16px;
+        font-weight: 400;
+        font-family: 'Lato', sans-serif;
+        color: $color-dark;
+
+        tr{
+            padding: 0 4px;
+
+            display: flex;
+            gap: 8px;
+
+            .td2{
+                width: 35%;
+            }
+
+            .td3{
+                width: 15%;
+            }
+        }
+    }
+
+    .outlined-button-with-icon{
+        display: flex;
+        flex-direction: row;
+        border: 1px solid $color-accent;
+        border-radius: 32px;
+        gap: 8px;
+        padding: 8px 16px;
+        background-color: transparent;
+        align-items: center;
+        width: fit-content;
+        font-size: 16px;
+        font-weight: 500;
+        font-family: 'Lato', sans-serif;
+        color: $color-dark;
+    }
+}
+
+.button-outlined{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid $color-accent;
+    border-radius: 32px;
+    padding: 8px 16px;
+    background-color: transparent;
+    align-items: center;
+    width: fit-content;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    color: $color-dark;
+}
+
+
+.hint {
+    font-size: 14px;
+}
