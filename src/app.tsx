@@ -24,7 +24,7 @@ const App: React.FC = () => {
               className={({ isActive }) =>
                 isActive ? "nav-element active" : "nav-element"
               }
-              to="/"
+              to="/sdk"
             >
               Dashboard
             </NavLink>
