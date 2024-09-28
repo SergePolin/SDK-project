@@ -62,5 +62,5 @@ export interface emojiType{
 
 export interface AddExerciseProps{
   setIsAddExerciseWindowOpen: Dispatch<React.SetStateAction<boolean>>;
-  setExercises: Dispatch<SetStateAction<exercise[]>>;
+  setExercises: Dispatch<SetStateAction<exercise>>;
 }

@@ -27,18 +27,23 @@ const emojiesList : emojiType[] = [
   {src: SpiralEyesFace, title: "dizzy"},
   {src: HotFace, title: "hot"}];
 
-  const options = [
-    "Option 1",
-    "Option 2",
-    "Option 3",
-    "Option 4",
-    "Option 5",
-    "Option 6",
-    "Option 7",
-    "Option 8",
-    "Option 9",
-    "Option 10"
-  ];
+  const workoutOptions: string[] = [
+    "Total Body Burn",
+    "Strength & Conditioning",
+    "HIIT Power Circuit",
+    "Cardio Blast",
+    "Core Crusher",
+    "Upper Body Strength",
+    "Leg Day",
+    "Full Body Sculpt",
+    "Pilates Flow",
+    "Yoga for Flexibility",
+    "Tabata Sweat Session",
+    "Bootcamp Challenge",
+    "Endurance Builder",
+    "Chest & Back Pump",
+    "Functional Fitness Routine"
+];
 
 
 
@@ -89,18 +94,18 @@ const NewTraining: React.FC = () => {
               <div className="div-horizontal-8 align-center">
               <img src={CaloriesIcon} alt="Calories"/>
                 <div className="div-horizontal-4 align-center">
-                  <input className="input-68" type="number" onChange={(e) => setTraining(prev => {return {...prev, calories: e.target.valueAsNumber}})} value={training.calories} min={0} max={10000} placeholder="---"></input>
+                  <input className="input-68" type="number" onChange={(e) => setTraining(prev => {return {...prev, calories:  Number.parseInt(e.target.value)}})} value={training.calories} min={0} max={10000} placeholder="---"></input>
                   <p>calories</p>
                 </div>
               </div>
               <div className="div-horizontal-8 align-center">
                 <img src={DurationIcon} alt="Duration"/>
                 <div className="div-horizontal-4 align-center">
-                  <input className="input-40" type="number" onChange={(e) => setTraining(prev => {return {...prev, hours: e.target.valueAsNumber}})} value={training.hours} min={0} max={23} placeholder="--"></input>
+                  <input className="input-40" type="number" onChange={(e) => setTraining(prev => {return {...prev, hours:  Number.parseInt(e.target.value)}})} value={training.hours} min={0} max={23} placeholder="--"></input>
                   <p>h</p>
                 </div>
                 <div className="div-horizontal-4 align-center">
-                  <input className="input-40" type="number" onChange={(e) => setTraining(prev => {return {...prev, minutes: e.target.valueAsNumber}})} value={training.minutes} min={0} max={59} placeholder="--"></input>
+                  <input className="input-40" type="number" onChange={(e) => setTraining(prev => {return {...prev, minutes:  Number.parseInt(e.target.value)}})} value={training.minutes} min={0} max={59} placeholder="--"></input>
                   <p>min</p>
                 </div>
               </div>
@@ -114,16 +119,16 @@ const NewTraining: React.FC = () => {
                 </div>
                 <textarea className="textarea" onChange={(e) => setTraining(prev => {return {...prev, feelings: e.target.value}})} value={training.feelings} placeholder="Here you can describe your feelings and thoutghts..." />
               </div>
-              <SegmentedControl option1="Saved workout" option2="Custom training" onChange1={() => setWorkoutType("saved")} onChange2={() => setWorkoutType("custom")}/>
-              <h4>{training.workout?.title}</h4>
+              {training.workout && <h4>{training.workout?.title}</h4>}
+              <SegmentedControl option1="Saved workout" option2="Custom training" onChange1={() => {setWorkoutType("saved");}} onChange2={() => {setWorkoutType("custom");}}/>
           </div>
-          <button type="submit" className="button-filled width-fill">Save training session</button>
+          <button type="submit" className="button-filled width-fill" disabled={((!training.date) || !training.dayOfWeek || (!training.calories || isNaN(training.calories)) || (!training.hours || isNaN(training.hours)) || (training.minutes === undefined || isNaN(training.minutes)) || !training.workout) ? true : false}>Save training session</button>
         </div>
         
         <div className="div-vertical-20">
           {openDatePicker && <DatePick onDateChoose={handleDateChoose}/>}
-          {workoutType === "saved" && <Dropdown title="Choose workout" options={options} onChoose={handleWorkoutChoose}/>}
-          {workoutType === "custom" && <NewWorkout/>}
+          {workoutType === "saved" && <Dropdown title="Choose workout" options={workoutOptions} onChoose={handleWorkoutChoose}/>}
+          {workoutType === "custom" && <NewWorkout isInTraining={true} handleSaveInTraining={handleWorkoutChoose}/>}
         </div>
         
       </form>

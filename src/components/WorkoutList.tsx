@@ -4,13 +4,14 @@ import ProgressCircle from "./ProgressCircle";
 import ActivityChart from "./ActivityChart";
 import Stats from "./Stats";
 import "../styles/dashboard.scss";
+import "../styles/global.scss";
 
 function WorkoutList() {
   const activityData = [32, 20, 25, 15, 28, 22, 26];
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-left">
+    <div className="div-horizontal-20">
+      <div className="div-vertical-20">
         <Calendar />
         <button className="new-training-btn">New training session</button>
         <Stats
@@ -20,7 +21,7 @@ function WorkoutList() {
           ]}
         />
       </div>
-      <div className="dashboard-right">
+      <div className="div-vertical-20">
         <div className="progress-circles">
           <ProgressCircle
             activities={[

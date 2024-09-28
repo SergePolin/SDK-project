@@ -121,7 +121,18 @@
     font-weight: 500;
     font-family: 'Lato', sans-serif;
     color: $color-dark;
+
+    &:not(:disabled):hover{
+        background-color: $color-accent-30;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 }
+
+
 
 
 .hint {
