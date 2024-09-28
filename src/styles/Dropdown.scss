@@ -8,6 +8,10 @@
     width: 240px;
     box-sizing: border-box;
 
+    ::-webkit-scrollbar{
+      display: block;
+    }
+
     .dropdown-header {
       width: 100%;
       display: flex;
