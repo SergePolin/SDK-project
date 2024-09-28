@@ -19,25 +19,37 @@ import { exercise, tag, WorkoutType } from "../types";
 
 const tags : tag[] = [{icon: JumpingRope, title: "Jumping rope"}, {icon: Weights, title: "Weights"}, {icon: Yoga, title: "Yoga"}, {icon: Stretching, title: "Stretching"}, {icon: Cardio, title: "Cardio"}, {icon: Strength, title: "Strength"}, {icon: FullBody, title: "Full body"}, {icon: Arms, title: "Arms"}, {icon: Legs, title: "Legs"}, {icon: Chest, title: "Chest"}, {icon: ABS, title: "Abs"}, {icon: Back, title: "Back"}];
 
+interface NewWorkoutProps{
+    isInTraining : boolean;
+    handleSaveInTraining?: Function;
+}
 
-
-const NewWorkout: React.FC = (isInTraining : boolean = false) => {
+export default function NewWorkout({isInTraining=false, handleSaveInTraining} : NewWorkoutProps){
     const [workout, setWorkout] = useState<WorkoutType>({} as WorkoutType);
 
-    let [exercises, setExercises] = useState<exercise[]>([{
-        title: "Bicep curl",
-        repsOrDuration: 15,
-        isTimeBased: false,
-        weight: 4
-      }, {
-        title: "Bicep curl",
-        repsOrDuration: 15,
-        isTimeBased: false,
-        weight: 4
-      }]);
+    function setExercises(exercise : exercise){
+        console.log(exercise);
+        setWorkout(prev=> {return {...prev, exercises: [...(prev?.exercises || []), exercise]}});
+    }
 
     const [isAddExerciseWindowOpen, setIsAddExerciseWindowOpen] = useState<boolean>(false);
     const [savedAsCustom, setSavedAsCustom] = useState<boolean>(false);
+
+    function handleSave(){
+        if(isInTraining){
+            handleSaveInTraining(workout.title);
+
+        }else{
+
+        }
+    }
+
+    function handleSaveAsCustom(){
+        if(isInTraining){
+            //save as custom
+            setSavedAsCustom(true);
+        }
+    }
     return (<div className="card align-end">
         <h3 className="width-fill">New workout</h3>
         <input className="input width-fill" placeholder="Title" value={workout.title} onChange={(e) => setWorkout(prev => {return {...prev, title: e.target.value}})}/>
@@ -45,7 +57,7 @@ const NewWorkout: React.FC = (isInTraining : boolean = false) => {
             <div className="div-vertical-16 width-tags">
                 <h4>Select the type of workout, the equipment, and the muscle groups.</h4>
                 <div className="tags-chosen">
-                {workout.tags && workout.tags.map( tag => <img className="tag-img" src={tag.icon} alt={tag.title} onClick={() => setWorkout(prev => {return {...prev, tags: prev.tags.filter(prevTag => prevTag.title !== tag.title)}})}/>
+                {workout.tags && workout.tags.map( tag => <img className="tag-img pointer" src={tag.icon} alt={tag.title} onClick={() => setWorkout(prev => {return {...prev, tags: prev.tags.filter(prevTag => prevTag.title !== tag.title)}})}/>
                     )}
                 </div>
                 <div className="tags-div">
@@ -55,7 +67,7 @@ const NewWorkout: React.FC = (isInTraining : boolean = false) => {
                         return (
                         <div 
                             key={tag.title} 
-                            className="tag" 
+                            className="tag pointer" 
                             onClick={() => setWorkout(prev => {
                             return { ...prev, tags: [...(prev?.tags || []), tag] };
                             })}
@@ -70,16 +82,16 @@ const NewWorkout: React.FC = (isInTraining : boolean = false) => {
             <div className="div-vertical-16 width-tags">
                 <h4>Exercises</h4>
                 <table className="div-vertical-8 exercise-table">
-                    {workout.exercises?.map((exercise, index) => {
+                    {workout.exercises && workout.exercises.map((exercise, index) => {
                         return (<tr>
-                            <td className="td1">{20}.</td>
+                            <td className="td1">{index + 1}.</td>
                             <td className="td2">{exercise.title}</td>
                             <td className="td3">{exercise.repsOrDuration} {exercise.isTimeBased ? "min" : "reps"}</td>
-                            {exercise.weight && <td className="td4">{exercise.weight} kg</td>}
+                            {!isNaN(exercise.weight) && <td className="td4">{exercise.weight} kg</td>}
                         </tr>);
                     })}
                 </table>
-                {!isAddExerciseWindowOpen ? <button type="button" className="outlined-button-with-icon" onClick={() => setIsAddExerciseWindowOpen(true)}>
+                {!isAddExerciseWindowOpen ? <button type="button" className="outlined-button-with-icon pointer" onClick={() => setIsAddExerciseWindowOpen(true)}>
                     <img src={Plus} alt="plus"/>
                     Add exercise
                 </button> :
@@ -90,11 +102,10 @@ const NewWorkout: React.FC = (isInTraining : boolean = false) => {
             {savedAsCustom ? <h4>Saved as custom workout!</h4> :
             <div className="div-vertical-8 align-end">
                 <p className="hint">Do you want to repeat this workout later?</p>
-                <button className="button-outlined">Save as custom workout</button>
+                <button className="button-outlined pointer" onClick={handleSaveAsCustom} disabled={((!workout.title || workout.title.trim() === "") || (!workout.exercises || workout.exercises.length === 0))}>Save as custom workout</button>
             </div>}
-            <button className="button-filled">Save</button>
-        </div> : <button className="button-filled">Save</button>}
+            <button className="button-filled pointer" onClick={handleSave} disabled={((!workout.title || workout.title.trim() === "") || (!workout.exercises || workout.exercises.length === 0))}>Save</button>
+        </div> : <button className="button-filled pointer" onClick={handleSave} disabled={((!workout.title || workout.title.trim() === "") || (!workout.exercises || workout.exercises.length === 0))}>Save</button>}
     </div>);
 };
 
-export default NewWorkout;
