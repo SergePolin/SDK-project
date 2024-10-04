@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/SegmentedControl.scss";
 
-const SegmentedControl = ({option1, option2, onChange1=()=>{}, onChange2=()=>{}, small=false}) => {
+const SegmentedControl = ({option1, option2, onChange1=()=>{}, onChange2=()=>{}, small=false, onClick1=()=>{}, onClick2=()=>{}}) => {
   const [selected, setSelected] = useState<string>(option1);
 
   return (
@@ -12,6 +12,7 @@ const SegmentedControl = ({option1, option2, onChange1=()=>{}, onChange2=()=>{},
         name="options"
         checked={selected === option1}
         onChange={() => {onChange1(); setSelected(option1);}}
+        onClick={onClick1}
       />
       <label htmlFor={option1} className={`${selected === option1 ? "active left" : "left"} ${small ? "small": "big"}`}>
         {option1}
@@ -23,6 +24,7 @@ const SegmentedControl = ({option1, option2, onChange1=()=>{}, onChange2=()=>{},
         name="options"
         checked={selected === option2}
         onChange={() => {onChange2(); setSelected(option2);}}
+        onClick={onClick2}
       />
       <label htmlFor={option2} className={`${selected === option2 ? "active right" : "right"} ${small ? "small": "big"}`}>
         {option2}
