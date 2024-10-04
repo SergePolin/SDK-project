@@ -40,7 +40,7 @@ interface NewWorkoutProps{
 }
 
 export default function NewWorkout({isInTraining=false, handleSaveInTraining} : NewWorkoutProps){
-    const [workout, setWorkout] = useState<WorkoutType>({} as WorkoutType);
+    const [workout, setWorkout] = useState<WorkoutType>({tags: []} as WorkoutType);
 
     function setExercises(exercise : exercise){
         console.log(exercise);
