@@ -16,7 +16,7 @@ import NewWorkout from "./NewWorkout";
 import SegmentedControl from "./SegmentControl";
 import DatePick from "./DatePicker";
 import { emojiType, TrainingType, WorkoutType } from "../types";
-import { FunnelChart } from "recharts";
+import { postTraining } from "../services/api";
 
 const emojiesList : emojiType[] = [
   {src: SmileFace, title: "happy"},
@@ -46,35 +46,37 @@ const emojiesList : emojiType[] = [
 ];
 
 
-
-
 const NewTraining: React.FC = () => {
     const currentDate = new Date();
-    const [training, setTraining] = useState<TrainingType>({dayOfWeek: currentDate.toLocaleDateString('en-EN', { weekday: 'long' }), date: `${("0" + currentDate.getUTCDate()).slice(-2)}.${("0" + (currentDate.getUTCMonth() + 1)).slice(-2)}.${currentDate.getUTCFullYear()}`} as TrainingType);
+    const [training, setTraining] = useState<TrainingType>({date: currentDate, emoji: null, feelings: ""} as TrainingType);
     
 
     type typeWorkout = "saved" | "custom";
     const [workoutType, setWorkoutType] = useState<typeWorkout>("saved");
     const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
 
+    const [showWorkoutChoosing, setShowWorkoutChoosing] = useState<boolean>(true);
+
     function handleDateChoose(chosenDate: Date){
-      setTraining(prev => {return {...prev, dayOfWeek: chosenDate.toLocaleDateString('en-EN', { weekday: 'long' }), date: `${("0" + chosenDate.getUTCDate()).slice(-2)}.${("0" + (chosenDate.getUTCMonth() + 1)).slice(-2)}.${chosenDate.getUTCFullYear()}`}});
+      setTraining(prev => {return {...prev,  date: chosenDate}});
       setOpenDatePicker(false);
     }
 
     function handleWorkoutChoose(workoutChosen: string){
-      setTraining(prev => {return {...prev, workout: {...prev.workout, title: workoutChosen} as WorkoutType}});
+      setTraining(prev => {return {...prev, workout: workoutChosen, isWorkoutSaved: workoutType === "saved"}});
+      workoutType === "custom" && setShowWorkoutChoosing(false);
     }
 
     function checkInput(){
       return true;
     }
 
-    function handleSumbit(e : FormEvent){
+    async function handleSumbit(e : FormEvent){
       e.preventDefault();
       if (checkInput){
         console.log(training);
-        console.log("submitted");
+        const response = await postTraining(training);
+        console.log("submitted", response);
       }
     }
 
@@ -84,9 +86,9 @@ const NewTraining: React.FC = () => {
           <div className="card">
             <h3 className="">Create new training session</h3>
             <div className="div-vertical-16">
-              <p>{training.dayOfWeek}</p>
+              <p>{training.date.toLocaleDateString('en-EN', { weekday: 'long' })}</p>
               <div className="div-horizontal-4">
-                <h4>{training.date}</h4>
+                <h4>{ `${("0" + training.date.getUTCDate()).slice(-2)}.${("0" + (training.date.getUTCMonth() + 1)).slice(-2)}.${training.date.getUTCFullYear()}`}</h4>
                 <img style={{cursor: 'pointer'}} src={DateIcon} alt="Date picker" onClick={() => setOpenDatePicker( prev =>!prev)}/>
               </div>
             </div>
@@ -119,16 +121,16 @@ const NewTraining: React.FC = () => {
                 </div>
                 <textarea className="textarea" onChange={(e) => setTraining(prev => {return {...prev, feelings: e.target.value}})} value={training.feelings} placeholder="Here you can describe your feelings and thoutghts..." />
               </div>
-              {training.workout && <h4>{training.workout?.title}</h4>}
-              <SegmentedControl option1="Saved workout" option2="Custom training" onChange1={() => {setWorkoutType("saved");}} onChange2={() => {setWorkoutType("custom");}}/>
+              {training.workout && <h4>{training.workout}</h4>} {/* fetch workout or just save title separately */}
+              <SegmentedControl option1="Saved workout" option2="Custom training" onChange1={() => {setWorkoutType("saved");}} onChange2={() => {setWorkoutType("custom");}} onClick2={()=> {setShowWorkoutChoosing(true)}}/>
           </div>
-          <button type="submit" className="button-filled width-fill" disabled={((!training.date) || !training.dayOfWeek || (!training.calories || isNaN(training.calories)) || (!training.hours || isNaN(training.hours)) || (training.minutes === undefined || isNaN(training.minutes)) || !training.workout) ? true : false}>Save training session</button>
+          <button type="submit" className="button-filled width-fill" disabled={((!training.date) || (!training.calories || isNaN(training.calories)) || (training.hours === undefined || isNaN(training.hours)) || training.hours*60 + training.minutes === 0 ||(training.minutes === undefined || isNaN(training.minutes)) || !training.workout || training.isWorkoutSaved === undefined) ? true : false}>Save training session</button>
         </div>
         
         <div className="div-vertical-20">
           {openDatePicker && <DatePick onDateChoose={handleDateChoose}/>}
-          {workoutType === "saved" && <Dropdown title="Choose workout" options={workoutOptions} onChoose={handleWorkoutChoose}/>}
-          {workoutType === "custom" && <NewWorkout isInTraining={true} handleSaveInTraining={handleWorkoutChoose}/>}
+          {workoutType === "saved" && <Dropdown title="Choose workout" options={workoutOptions} onChoose={handleWorkoutChoose}/>} {/*do options as workoutType[] */}
+          {workoutType === "custom" && showWorkoutChoosing === true && <NewWorkout isInTraining={true} handleSaveInTraining={handleWorkoutChoose}/>}
         </div>
         
       </form>

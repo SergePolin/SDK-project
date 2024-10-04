@@ -24,10 +24,6 @@ export interface Statistics {
   // Add more fields as needed
 }
 
-export interface tag{
-  icon: any;
-  title: string;
-}
 
 export interface exercise{
   title: string;
@@ -39,20 +35,20 @@ export interface exercise{
 export interface WorkoutType{
   id: string;
   title: string;
-  tags: tag[];
+  tags: string[];
   exercises: exercise[];
 }
 
 export interface TrainingType{
   id: string;
-  dayOfWeek: string;
-  date: string;
+  date: Date;
   calories: number;
   hours: number;
   minutes: number;
   emoji: string;
   feelings: string;
-  workout: WorkoutType;
+  workout: string; //id
+  isWorkoutSaved: boolean;
 }
 
 export interface emojiType{

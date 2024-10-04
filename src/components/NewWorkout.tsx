@@ -15,9 +15,24 @@ import Plus from "../assets/plus.svg";
 import "../styles/global.scss";
 import "../styles/NewWorkout.scss";
 import AddExercise from "./AddExercise";
-import { exercise, tag, WorkoutType } from "../types";
+import { exercise, WorkoutType } from "../types";
+import { postCustomWorkout, postSavedWorkout } from "../services/api";
 
-const tags : tag[] = [{icon: JumpingRope, title: "Jumping rope"}, {icon: Weights, title: "Weights"}, {icon: Yoga, title: "Yoga"}, {icon: Stretching, title: "Stretching"}, {icon: Cardio, title: "Cardio"}, {icon: Strength, title: "Strength"}, {icon: FullBody, title: "Full body"}, {icon: Arms, title: "Arms"}, {icon: Legs, title: "Legs"}, {icon: Chest, title: "Chest"}, {icon: ABS, title: "Abs"}, {icon: Back, title: "Back"}];
+
+const tagsMap = new Map([
+    ["Jumping rope", JumpingRope],
+    ["Weights", Weights],
+    ["Yoga", Yoga],
+    ["Stretching", Stretching],
+    ["Cardio", Cardio],
+    ["Strength", Strength],
+    ["Full body", FullBody],
+    ["Arms", Arms],
+    ["Legs", Legs],
+    ["Chest", Chest],
+    ["Abs", ABS],
+    ["Back", Back]
+  ]);
 
 interface NewWorkoutProps{
     isInTraining : boolean;
@@ -35,21 +50,29 @@ export default function NewWorkout({isInTraining=false, handleSaveInTraining} : 
     const [isAddExerciseWindowOpen, setIsAddExerciseWindowOpen] = useState<boolean>(false);
     const [savedAsCustom, setSavedAsCustom] = useState<boolean>(false);
 
-    function handleSave(){
+    async function handleSave(){
         if(isInTraining){
+            if (!savedAsCustom){
+                const response = await postCustomWorkout(workout);
+                console.log(response);
+            }
+            console.log("saved", workout);
             handleSaveInTraining(workout.title);
-
         }else{
-
+            const response = await postSavedWorkout(workout);
+            console.log(response);
         }
     }
 
-    function handleSaveAsCustom(){
+    async function handleSaveAsCustom(){
         if(isInTraining){
-            //save as custom
+            const response = await postSavedWorkout(workout);
+            console.log("workout", response);
             setSavedAsCustom(true);
         }
     }
+
+
     return (<div className="card align-end">
         <h3 className="width-fill">New workout</h3>
         <input className="input width-fill" placeholder="Title" value={workout.title} onChange={(e) => setWorkout(prev => {return {...prev, title: e.target.value}})}/>
@@ -57,23 +80,23 @@ export default function NewWorkout({isInTraining=false, handleSaveInTraining} : 
             <div className="div-vertical-16 width-tags">
                 <h4>Select the type of workout, the equipment, and the muscle groups.</h4>
                 <div className="tags-chosen">
-                {workout.tags && workout.tags.map( tag => <img className="tag-img pointer" src={tag.icon} alt={tag.title} onClick={() => setWorkout(prev => {return {...prev, tags: prev.tags.filter(prevTag => prevTag.title !== tag.title)}})}/>
+                {workout.tags && workout.tags.map( tag => <img className="tag-img pointer" src={tagsMap.get(tag)} alt={tag} onClick={() => setWorkout(prev => {return {...prev, tags: prev.tags.filter(prevTag => prevTag !== tag)}})}/>
                     )}
                 </div>
                 <div className="tags-div">
-                {tags
-                    .filter(tag => !workout.tags?.some(selectedTag => selectedTag.title === tag.title))
+                {Array.from(tagsMap.keys())
+                    .filter(tag => !workout.tags?.some(selectedTag => selectedTag === tag))
                     .map(tag => { 
                         return (
                         <div 
-                            key={tag.title} 
+                            key={tag} 
                             className="tag pointer" 
                             onClick={() => setWorkout(prev => {
-                            return { ...prev, tags: [...(prev?.tags || []), tag] };
+                            return { ...prev, tags: [...(prev?.tags || []), tag] }
                             })}
                         >
-                            <img className="tag-img" src={tag.icon} alt={tag.title}/>
-                            <span className="tag-title">{tag.title}</span>
+                            <img className="tag-img" src={tagsMap.get(tag)} alt={tag}/>
+                            <span className="tag-title">{tag}</span>
                         </div>
                         );
                     })}
@@ -102,10 +125,10 @@ export default function NewWorkout({isInTraining=false, handleSaveInTraining} : 
             {savedAsCustom ? <h4>Saved as custom workout!</h4> :
             <div className="div-vertical-8 align-end">
                 <p className="hint">Do you want to repeat this workout later?</p>
-                <button className="button-outlined pointer" onClick={handleSaveAsCustom} disabled={((!workout.title || workout.title.trim() === "") || (!workout.exercises || workout.exercises.length === 0))}>Save as custom workout</button>
+                <button type="button" className="button-outlined pointer" onClick={handleSaveAsCustom} disabled={((!workout.title || workout.title.trim() === "") || (!workout.exercises || workout.exercises.length === 0))}>Save as custom workout</button>
             </div>}
-            <button className="button-filled pointer" onClick={handleSave} disabled={((!workout.title || workout.title.trim() === "") || (!workout.exercises || workout.exercises.length === 0))}>Save</button>
-        </div> : <button className="button-filled pointer" onClick={handleSave} disabled={((!workout.title || workout.title.trim() === "") || (!workout.exercises || workout.exercises.length === 0))}>Save</button>}
+            <button type="button" className="button-filled pointer" onClick={handleSave} disabled={((!workout.title || workout.title.trim() === "") || (!workout.exercises || workout.exercises.length === 0))}>Save</button>
+        </div> : <button type="button" className="button-filled pointer" onClick={handleSave} disabled={((!workout.title || workout.title.trim() === "") || (!workout.exercises || workout.exercises.length === 0))}>Save</button>}
     </div>);
 };
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Day, Workout } from "../types";
 import { fetchDays, fetchWorkouts } from "../services/api";
 import ProgressCircle from "./ProgressCircle";
+import NewWorkout from "./NewWorkout";
 
 const Reports: React.FC = () => {
   const [days, setDays] = useState<Day[]>([]);
@@ -31,6 +32,7 @@ const Reports: React.FC = () => {
 
   return (
     <div className="reports">
+      {/* <NewWorkout isInTraining={false}/> */}
       {activities.length > 0 && (
         <ProgressCircle
           activities={activities}
