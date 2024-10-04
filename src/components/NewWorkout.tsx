@@ -57,7 +57,7 @@ export default function NewWorkout({isInTraining=false, handleSaveInTraining} : 
                 console.log(response);
             }
             console.log("saved", workout);
-            handleSaveInTraining(workout.title);
+            handleSaveInTraining(workout);
         }else{
             const response = await postSavedWorkout(workout);
             console.log(response);

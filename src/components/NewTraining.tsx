@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import "../styles/NewTraining.scss";
 import "../styles/global.scss";
 import DateIcon from "../assets/date_icon.svg";
@@ -16,7 +16,8 @@ import NewWorkout from "./NewWorkout";
 import SegmentedControl from "./SegmentControl";
 import DatePick from "./DatePicker";
 import { emojiType, TrainingType, WorkoutType } from "../types";
-import { postTraining } from "../services/api";
+import { fetchWorkouts, postTraining } from "../services/api";
+import { AnimatePresence, motion} from 'framer-motion';
 
 const emojiesList : emojiType[] = [
   {src: SmileFace, title: "happy"},
@@ -27,29 +28,37 @@ const emojiesList : emojiType[] = [
   {src: SpiralEyesFace, title: "dizzy"},
   {src: HotFace, title: "hot"}];
 
-  const workoutOptions: string[] = [
-    "Total Body Burn",
-    "Strength & Conditioning",
-    "HIIT Power Circuit",
-    "Cardio Blast",
-    "Core Crusher",
-    "Upper Body Strength",
-    "Leg Day",
-    "Full Body Sculpt",
-    "Pilates Flow",
-    "Yoga for Flexibility",
-    "Tabata Sweat Session",
-    "Bootcamp Challenge",
-    "Endurance Builder",
-    "Chest & Back Pump",
-    "Functional Fitness Routine"
+  const workoutOptions: WorkoutType[] = [
+    {id: "0", title: "Total Body Burn", tags: [], exercises: []} as WorkoutType,
+    {id: "1", title: "Strength & Conditioning", tags: [], exercises: []} as WorkoutType,
+    {id: "2", title: "HIIT Power Circuit", tags: [], exercises: []} as WorkoutType,
+    {id: "3", title: "Cardio Blast", tags: [], exercises: []} as WorkoutType,
+    {id: "4", title: "Core Crusher", tags: [], exercises: []} as WorkoutType,
+    {id: "5", title: "Upper Body Strength", tags: [], exercises: []} as WorkoutType,
+    {id: "6", title: "Leg Day", tags: [], exercises: []} as WorkoutType,
+    {id: "7", title: "Full Body Sculpt", tags: [], exercises: []} as WorkoutType,
+    {id: "8", title: "Pilates Flow", tags: [], exercises: []} as WorkoutType,
+    {id: "9", title: "Yoga for Flexibility", tags: [], exercises: []} as WorkoutType,
+    {id: "10", title: "Tabata Sweat Session", tags: [], exercises: []} as WorkoutType,
+    {id: "11", title: "Bootcamp Challenge", tags: [], exercises: []} as WorkoutType,
+    {id: "12", title: "Endurance Builder", tags: [], exercises: []} as WorkoutType,
+    {id: "13", title: "Chest & Back Pump", tags: [], exercises: []} as WorkoutType,
+    {id: "14", title: "Functional Fitness Routine", tags: [], exercises: []} as WorkoutType
 ];
+
+
+
 
 
 const NewTraining: React.FC = () => {
     const currentDate = new Date();
     const [training, setTraining] = useState<TrainingType>({date: currentDate, emoji: null, feelings: ""} as TrainingType);
-    
+    const [workoutTitle, setWorkoutTitle] = useState<string>("");
+    const [workouts, setWorkouts] = useState<WorkoutType[]>([]);
+
+    useEffect(() => {
+      fetchWorkouts().then((response) => setWorkouts(response.data));
+    }, []);
 
     type typeWorkout = "saved" | "custom";
     const [workoutType, setWorkoutType] = useState<typeWorkout>("saved");
@@ -62,8 +71,9 @@ const NewTraining: React.FC = () => {
       setOpenDatePicker(false);
     }
 
-    function handleWorkoutChoose(workoutChosen: string){
-      setTraining(prev => {return {...prev, workout: workoutChosen, isWorkoutSaved: workoutType === "saved"}});
+    function handleWorkoutChoose(workoutChosen: WorkoutType){
+      setTraining(prev => {return {...prev, workout: workoutChosen.id, isWorkoutSaved: workoutType === "saved"}});
+      setWorkoutTitle(workoutChosen.title);
       workoutType === "custom" && setShowWorkoutChoosing(false);
     }
 
@@ -80,10 +90,11 @@ const NewTraining: React.FC = () => {
       }
     }
 
+
     return (
         <form className="div-horizontal-20" onSubmit={handleSumbit}>
         <div className="div-vertical-20">
-          <div className="card">
+          <div className="card shadow">
             <h3 className="">Create new training session</h3>
             <div className="div-vertical-16">
               <p>{training.date.toLocaleDateString('en-EN', { weekday: 'long' })}</p>
@@ -121,16 +132,46 @@ const NewTraining: React.FC = () => {
                 </div>
                 <textarea className="textarea" onChange={(e) => setTraining(prev => {return {...prev, feelings: e.target.value}})} value={training.feelings} placeholder="Here you can describe your feelings and thoutghts..." />
               </div>
-              {training.workout && <h4>{training.workout}</h4>} {/* fetch workout or just save title separately */}
+              {workoutTitle && <h4>{workoutTitle}</h4>}
               <SegmentedControl option1="Saved workout" option2="Custom training" onChange1={() => {setWorkoutType("saved");}} onChange2={() => {setWorkoutType("custom");}} onClick2={()=> {setShowWorkoutChoosing(true)}}/>
           </div>
           <button type="submit" className="button-filled width-fill" disabled={((!training.date) || (!training.calories || isNaN(training.calories)) || (training.hours === undefined || isNaN(training.hours)) || training.hours*60 + training.minutes === 0 ||(training.minutes === undefined || isNaN(training.minutes)) || !training.workout || training.isWorkoutSaved === undefined) ? true : false}>Save training session</button>
         </div>
         
         <div className="div-vertical-20">
-          {openDatePicker && <DatePick onDateChoose={handleDateChoose}/>}
-          {workoutType === "saved" && <Dropdown title="Choose workout" options={workoutOptions} onChoose={handleWorkoutChoose}/>} {/*do options as workoutType[] */}
-          {workoutType === "custom" && showWorkoutChoosing === true && <NewWorkout isInTraining={true} handleSaveInTraining={handleWorkoutChoose}/>}
+        <AnimatePresence >
+          {openDatePicker && 
+          
+            <motion.div
+              initial={{ opacity: 0, height:0, overflow: "hidden"}}
+              key="content1"
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0, overflow: "hidden"}}
+              transition={{ duration: 0.5 }}
+              className="shadow motion-div">
+              <DatePick onDateChoose={handleDateChoose}/>
+            </motion.div>}
+          {workoutType === "saved" && <motion.div
+              initial={{ opacity: 0, transform: "translateY(-10px)", overflow: "hidden"}}
+              key="content2"
+              animate={{ opacity: 1,transform: "translateY(0)", overflow: "visible"}}
+              exit={{ opacity: 0, transform: "translateY(-10px)", overflow: "hidden"}}
+              transition={{ duration: 0.5 }}
+              className="motion-div">
+                <Dropdown title="Choose workout" options={workouts} onChoose={handleWorkoutChoose}/>
+              </motion.div>}
+          {workoutType === "custom" && showWorkoutChoosing === true && 
+          
+            <motion.div
+              initial={{ opacity: 0, width:0, overflow: "hidden"}}
+              key="content3"
+              animate={{ opacity: 1, width: 'auto' }}
+              exit={{ opacity: 0, width: 0, overflow: "hidden"}}
+              transition={{ duration: 0.5 }}
+              className="shadow motion-div">
+              <NewWorkout isInTraining={true} handleSaveInTraining={handleWorkoutChoose}/>
+          </motion.div>
+        }</AnimatePresence>
         </div>
         
       </form>

@@ -87,6 +87,10 @@ router.post('/workout', (req, res) => {
     res.status(201).json(newWorkout);
 });
 
+router.get('/workouts', (req, res) => {
+    res.json(savedWorkouts);
+});
+
 router.post('/training/workout', (req, res) => {
     const newWorkout = { ...req.body, id: uuidv4() };
     trainingWorkouts.push(newWorkout);
