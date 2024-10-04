@@ -17,7 +17,7 @@ interface DatePickerProps{
 export default function DatePick({onDateChoose}: DatePickerProps){
     const color : MbscCalendarColor = {highlight: "rgba(#D63D1C, 0.5)", background: '#D63D1C'}
     const [chosen, setChosen] = useState<string>("");
-    return (<div className="date-picker shadow">
+    return (<div className="date-picker">
         <div className="date-picker-header">
             <h4 style={{width: '118px', textAlign: 'center'}}>Month</h4>
             <h4 style={{width: '80px', textAlign: 'center'}}>Day</h4>

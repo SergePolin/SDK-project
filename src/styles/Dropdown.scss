@@ -86,8 +86,15 @@
         }
       }
 
-      li:hover {
+      
+
+      li:not(.no-data):hover {
         background-color: $color-accent-30;
+      }
+
+      li.no-data:hover{
+        background-color: transparent;
+        cursor:default;
       }
     }
 
