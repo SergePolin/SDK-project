@@ -20,7 +20,6 @@ function WorkoutList() {
   const navigate = useNavigate();
 
   function handleDayClick(day: Date){
-    console.log("date:", day);
     navigate("/sdk/newTraining", {state: {dateProp: day}});
   }
 
@@ -38,7 +37,7 @@ function WorkoutList() {
     <div className="div-horizontal-20">
       <div className="div-vertical-20">
         <Calendar events={events} onDateClick={handleDayClick}/>
-        <button className="new-training-btn">New training session</button>
+        <button className="new-training-btn" onClick={() => navigate("/sdk/newTraining")}>New training session</button>
         <Stats
           items={[
             { value: 50, label: "Workouts completed" },
