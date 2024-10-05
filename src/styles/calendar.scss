@@ -1,3 +1,4 @@
+@import "./variables.scss";
 .calendar-container {
   background-color: white;
   border-radius: 16px;
@@ -13,7 +14,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
 
   h2 {
     font-size: 1.25rem;
@@ -35,6 +35,8 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 0.5rem;
   margin-bottom: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid $color-accent;
 
   .day-name {
     text-align: center;
@@ -62,9 +64,23 @@
     font-size: 0.875rem;
     position: relative;
     border-radius: 50%;
+    border: 1px solid $color-accent;
+    padding: 0.5rem;
 
     &.disabled {
-      color: #ccc;
+      opacity: 0.5;
+    }
+
+    &.today>span{
+      color: $color-accent;
+    }
+
+    &.important {
+      background-color: $color-accent;
+    }
+
+    &.today.important>span{
+      color: $color-white;
     }
 
     .event-indicator {
@@ -75,18 +91,22 @@
       top: 0;
       left: 0;
       z-index: -1;
+      
 
       &.normal {
-        background-color: #f0f0f0;
+        background-color: $color-white;
       }
 
       &.important {
-        background-color: #d94535;
+        background-color: $color-accent;
       }
     }
 
     span {
       z-index: 1;
+      padding: 0;
+      margin: 0;
+      line-height: 100%;
     }
   }
 }

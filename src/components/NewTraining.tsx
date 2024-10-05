@@ -18,6 +18,7 @@ import DatePick from "./DatePicker";
 import { emojiType, TrainingType, WorkoutType } from "../types";
 import { fetchWorkouts, postTraining } from "../services/api";
 import { AnimatePresence, motion} from 'framer-motion';
+import { useLocation } from "react-router-dom";
 
 const emojiesList : emojiType[] = [
   {src: SmileFace, title: "happy"},
@@ -48,10 +49,12 @@ const emojiesList : emojiType[] = [
 
 
 
-
-
 const NewTraining: React.FC = () => {
-    const currentDate = new Date();
+  const location = useLocation();
+  const { dateProp } = location.state || {};
+
+    const currentDate = dateProp ?? new Date();
+    console.log(currentDate);
     const [training, setTraining] = useState<TrainingType>({date: currentDate, emoji: null, feelings: ""} as TrainingType);
     const [workoutTitle, setWorkoutTitle] = useState<string>("");
     const [workouts, setWorkouts] = useState<WorkoutType[]>([]);
@@ -66,6 +69,8 @@ const NewTraining: React.FC = () => {
 
     const [showWorkoutChoosing, setShowWorkoutChoosing] = useState<boolean>(true);
 
+    let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
     function handleDateChoose(chosenDate: Date){
       setTraining(prev => {return {...prev,  date: chosenDate}});
       setOpenDatePicker(false);
@@ -97,9 +102,9 @@ const NewTraining: React.FC = () => {
           <div className="card shadow">
             <h3 className="">Create new training session</h3>
             <div className="div-vertical-16">
-              <p>{training.date.toLocaleDateString('en-EN', { weekday: 'long' })}</p>
+              <p>{daysOfWeek[training.date.getDay()]}</p>
               <div className="div-horizontal-4">
-                <h4>{ `${("0" + training.date.getUTCDate()).slice(-2)}.${("0" + (training.date.getUTCMonth() + 1)).slice(-2)}.${training.date.getUTCFullYear()}`}</h4>
+                <h4>{ `${("0" + training.date.getDate()).slice(-2)}.${("0" + (training.date.getMonth() + 1)).slice(-2)}.${training.date.getFullYear()}`}</h4>
                 <img style={{cursor: 'pointer'}} src={DateIcon} alt="Date picker" onClick={() => setOpenDatePicker( prev =>!prev)}/>
               </div>
             </div>
