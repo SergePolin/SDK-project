@@ -35,7 +35,7 @@ const Dropdown = ({title, options, onChoose}) => {
         >
         <div className="dropdown-list-div">
           <ul className="dropdown-list">
-            {options && options.length !== 0 ? options.map((option : WorkoutType) => (
+            {Array.isArray(options) && options.length !== 0 ? options.map((option : WorkoutType) => (
               <li className={selectedItem===option.title ? "selected":""} key={option.id} onClick={() => handleOptionClick(option)}>
                 {option.title}
               </li>
