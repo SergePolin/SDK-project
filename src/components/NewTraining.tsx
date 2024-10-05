@@ -20,14 +20,7 @@ import { fetchWorkouts, postTraining } from "../services/api";
 import { AnimatePresence, motion} from 'framer-motion';
 import { useLocation } from "react-router-dom";
 
-const emojiesList : emojiType[] = [
-  {src: SmileFace, title: "happy"},
-  {src: BicepEmoji, title: "strong"},
-  {src: AnxiousFace, title: "anoxious"},
-  {src: FaceWithHearts, title: "fuzzy"},
-  {src: CryingFace, title: "crying"},
-  {src: SpiralEyesFace, title: "dizzy"},
-  {src: HotFace, title: "hot"}];
+
 
   const workoutOptions: WorkoutType[] = [
     {id: "0", title: "Total Body Burn", tags: [], exercises: []} as WorkoutType,
@@ -50,6 +43,15 @@ const emojiesList : emojiType[] = [
 
 
 const NewTraining: React.FC = () => {
+  const emojiesList : emojiType[] = [
+    {src: SmileFace, title: "happy"},
+    {src: BicepEmoji, title: "strong"},
+    {src: AnxiousFace, title: "anoxious"},
+    {src: FaceWithHearts, title: "fuzzy"},
+    {src: CryingFace, title: "crying"},
+    {src: SpiralEyesFace, title: "dizzy"},
+    {src: HotFace, title: "hot"}];
+    
   const location = useLocation();
   const { dateProp } = location.state || {};
 
@@ -131,7 +133,7 @@ const NewTraining: React.FC = () => {
               <div className="div-vertical-16">
                 <h4>How do you feel?</h4>
                 <div className="emojies">
-                  {emojiesList.map(item => <div key={item.title} className={training.emoji === item.title ? "emoji chosen" : "emoji"}>
+                  {emojiesList && emojiesList.map(item => <div key={item.title} className={training.emoji === item.title ? "emoji chosen" : "emoji"}>
                   <img src={item.src} alt={item.title} onClick={()=> setTraining(prev => {return {...prev, emoji: item.title}})}/>
                   </div>)}
                 </div>
