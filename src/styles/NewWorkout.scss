@@ -1,15 +1,15 @@
 @import "./variables.scss";
 
 .input{
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     font-family: 'Lato', sans-serif;
     color: $color-dark;
     margin: 0;
-    padding: 8px;
+    padding: 0.5rem;
     height: 40px;
     box-sizing: border-box;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     border: 1px solid $color-dark-50;
     line-height: 40px;
     background-color: transparent;
@@ -31,11 +31,11 @@
 
     .tags-chosen{
         display: inline-grid;
-        row-gap: 8px;
-        column-gap: 8px;
+        row-gap: 0.5rem;
+        column-gap: 0.5rem;
         grid-template-columns: repeat(7, 1fr);
         max-width: 412px;
-        padding: 0 8px;
+        padding: 0 0.5rem;
     
         .tag-img{
             height: 40px;
@@ -53,8 +53,8 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            gap:8px;
-            padding: 4px 8px;
+            gap:0.5rem;
+            padding: 4px 0.5rem;
             
     
             .tag-img{
@@ -70,7 +70,7 @@
     }
 
     .exercise-table{
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 400;
         font-family: 'Lato', sans-serif;
         color: $color-dark;
@@ -79,7 +79,7 @@
             padding: 0 4px;
 
             display: flex;
-            gap: 8px;
+            gap: 0.5rem;
 
             .td2{
                 width: 35%;
@@ -96,12 +96,12 @@
         flex-direction: row;
         border: 1px solid $color-accent;
         border-radius: 32px;
-        gap: 8px;
-        padding: 8px 16px;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
         background-color: transparent;
         align-items: center;
         width: fit-content;
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 500;
         font-family: 'Lato', sans-serif;
         color: $color-dark;
@@ -113,11 +113,11 @@
     flex-direction: row;
     border: 1px solid $color-accent;
     border-radius: 32px;
-    padding: 8px 16px;
+    padding: 0.5rem 1rem;
     background-color: transparent;
     align-items: center;
     width: fit-content;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 500;
     font-family: 'Lato', sans-serif;
     color: $color-dark;

@@ -16,3 +16,4 @@ export const postSavedWorkout = (workout: WorkoutType) => axios.post(`${API_BASE
 export const postCustomWorkout = (workout: WorkoutType) => axios.post(`${API_BASE}/training/workout`, workout);
 export const postTraining = (training: TrainingType) => axios.post(`${API_BASE}/training`, training);
 export const fetchWorkouts = () => axios.get<WorkoutType[]>(`${API_BASE}/workouts`);
+export const fetchDays = () => axios.get<Date[]>(`${API_BASE}/days`);
