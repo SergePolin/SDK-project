@@ -28,7 +28,7 @@ interface CalendarProps {
   onEventClick?: (date: Date) => void;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ events = [],onEventClick, onDateClick }) => {
+const Calendar: React.FC<CalendarProps> = ({ events = [], onEventClick, onDateClick }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const prevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
@@ -84,7 +84,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = [],onEventClick, onDateCli
           <div
             className={`calendar-cell ${!isCurrentMonth ? "disabled" : ""} ${!isToday(day) ? "" : "today"} ${event ? event.type : ""}`}
             key={day.getTime()}
-            onClick={() => onDateClick && onDateClick(date)}
+            onClick={event ? () => onEventClick && onEventClick(date) : () => onDateClick && onDateClick(date)}
           >
             <span>{formattedDate}</span>
           </div>
