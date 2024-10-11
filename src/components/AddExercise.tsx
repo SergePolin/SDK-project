@@ -14,7 +14,6 @@ export default function AddExercise({setIsAddExerciseWindowOpen, setExercises}: 
     const [withWeights, setWithWeights] = useState<boolean>(false);
 
     function handleSumbit(){
-        console.log(exercise);
         setExercises(exercise);
         setIsAddExerciseWindowOpen(false);
     }
@@ -23,7 +22,7 @@ export default function AddExercise({setIsAddExerciseWindowOpen, setExercises}: 
         <h5 className="width-fill">New exercise</h5>
         <input className="input width-fill" placeholder="Title" value={exercise.title} onChange={(e) => setExercise(prev => {return {...prev, title: e.target.value}})}/>
         <div className="div-horizontal-16 align-center width-fill">
-            <input className="input-98" placeholder="Number of" onChange={(e) => setExercise(prev => {console.log(e.target.value); return {...prev, repsOrDuration: Number.parseInt(e.target.value)}})}/>
+            <input className="input-98" placeholder="Number of" onChange={(e) => setExercise(prev => {return {...prev, repsOrDuration: Number.parseInt(e.target.value)}})}/>
             <SegmentedControl key="exercise" option1="reps" option2="min" small={true} onChange1={() => {setExercise(prev => {return {...prev, isTimeBased: false}})}} onChange2={() => setExercise(prev => {return {...prev, isTimeBased: true}})}/>
         </div>
         {withWeights ?
@@ -41,7 +40,7 @@ export default function AddExercise({setIsAddExerciseWindowOpen, setExercises}: 
             <img src={CheckBox} alt="choose"/>
             <p>Weights</p>
         </div>}
-        <button onClick={handleSumbit} disabled={((!exercise.title || exercise.title.trim() === "") || (exercise.isTimeBased === undefined) || (exercise.repsOrDuration === -1) || (withWeights && (!exercise.weight || isNaN(exercise.weight) || exercise.weight === -1))) ? true : false} className="button-filled">
+        <button type="button" onClick={handleSumbit} disabled={((!exercise.title || exercise.title.trim() === "") || (exercise.isTimeBased === undefined) || (exercise.repsOrDuration === -1) || (withWeights && (!exercise.weight || isNaN(exercise.weight) || exercise.weight === -1))) ? true : false} className="button-filled">
             Add
         </button>
     </div>);

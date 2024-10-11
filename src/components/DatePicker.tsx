@@ -2,6 +2,7 @@ import "../styles/DatePicker.scss";
 import { Datepicker, setOptions, localeEn, MbscCalendarColor } from '@mobiscroll/react';
 import { FC, useState } from 'react';
 import React from 'react';
+import "../styles/global.scss";
 
 setOptions({
   locale: localeEn,

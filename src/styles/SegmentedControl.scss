@@ -15,7 +15,7 @@
       background-color: transparent;
       transition: background-color 0.5s, color 0.5s;
       border: 1px solid $color-accent;
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 400;
       font-family: 'Lato', sans-serif;
       color: $color-dark;
@@ -30,12 +30,12 @@
       }
     }
     .small{
-      padding: 8px 16px;
+      padding: 8px 1rem;
       width: 32px;
     }
     
     .big{
-      padding: 16px;
+      padding: 1rem;
     }
 
     .left{

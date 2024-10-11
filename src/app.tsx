@@ -25,6 +25,7 @@ const App: React.FC = () => {
                 isActive ? "nav-element active" : "nav-element"
               }
               to="/sdk"
+              end
             >
               Dashboard
             </NavLink>

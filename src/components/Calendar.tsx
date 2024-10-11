@@ -10,8 +10,12 @@ import {
   addDays,
   isSameMonth,
   isSameDay,
+  isToday,
 } from "date-fns";
 import "../styles/calendar.scss";
+import "../styles/global.scss";
+import Prev from "../assets/prev.svg";
+import Next from "../assets/next.svg";
 
 interface CalendarEvent {
   date: Date;
@@ -21,9 +25,10 @@ interface CalendarEvent {
 interface CalendarProps {
   events?: CalendarEvent[];
   onDateClick?: (date: Date) => void;
+  onEventClick?: (date: Date) => void;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ events = [], onDateClick }) => {
+const Calendar: React.FC<CalendarProps> = ({ events = [], onEventClick, onDateClick }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const prevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
@@ -31,9 +36,13 @@ const Calendar: React.FC<CalendarProps> = ({ events = [], onDateClick }) => {
 
   const renderHeader = () => (
     <div className="calendar-header">
-      <button onClick={prevMonth}>&lt;</button>
+      <button onClick={prevMonth}>
+        <img src={Prev} alt="prev"/>
+      </button>
       <h2>{format(currentMonth, "MMMM yyyy")}</h2>
-      <button onClick={nextMonth}>&gt;</button>
+      <button onClick={nextMonth}>
+        <img src={Next} alt="next"/>
+      </button>
     </div>
   );
 
@@ -59,23 +68,28 @@ const Calendar: React.FC<CalendarProps> = ({ events = [], onDateClick }) => {
     const rows = [];
     let days = [];
     let day = startDate;
-
+    
+    let row = 0;
     while (day <= endDate) {
+      
       for (let i = 0; i < 7; i++) {
+        
         const formattedDate = format(day, "d");
+        
         const isCurrentMonth = isSameMonth(day, monthStart);
         const event = events.find((e) => isSameDay(e.date, day));
 
+        let date = day;
         days.push(
           <div
-            className={`calendar-cell ${!isCurrentMonth ? "disabled" : ""}`}
-            key={day.toString()}
-            onClick={() => onDateClick && onDateClick(day)}
+            className={`calendar-cell ${!isCurrentMonth ? "disabled" : ""} ${!isToday(day) ? "" : "today"} ${event ? event.type : ""}`}
+            key={day.getTime()}
+            onClick={event ? () => onEventClick && onEventClick(date) : () => onDateClick && onDateClick(date)}
           >
             <span>{formattedDate}</span>
-            {event && <span className={`event-indicator ${event.type}`} />}
           </div>
         );
+        console.log(day, formattedDate);
         day = addDays(day, 1);
       }
       rows.push(
@@ -83,6 +97,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = [], onDateClick }) => {
           {days}
         </div>
       );
+      row++;
       days = [];
     }
 

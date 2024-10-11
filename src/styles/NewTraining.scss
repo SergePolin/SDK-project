@@ -3,7 +3,7 @@
 .emojies{
     display: flex;
     flex-direction: row;
-    padding: 4px 16px;
+    padding: 4px 1rem;
     justify-content: space-between;
     background-color: $color-background;
     border-radius: 32px;
@@ -15,7 +15,7 @@
     width: 40px;
     padding: 4px;
     margin: 0;
-    border-radius: 16px;
+    border-radius: 1rem;
     cursor: pointer;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .input-40{
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     font-family: 'Lato', sans-serif;
     color: $color-dark;
@@ -42,7 +42,7 @@
     height: 24px;
     width: 40px;
     box-sizing: border-box;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     border: 1px solid $color-dark-50;
     text-align: center;
     line-height: 24px;
@@ -50,7 +50,7 @@
 }
 
 .input-68{
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     font-family: 'Lato', sans-serif;
     color: $color-dark;
@@ -59,7 +59,7 @@
     height: 24px;
     width: 68px;
     box-sizing: border-box;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     border: 1px solid $color-dark-50;
     text-align: center;
     line-height: 24px;
@@ -67,16 +67,16 @@
 }
 
 .textarea{
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     font-family: 'Lato', sans-serif;
     color: $color-dark;
     margin: 0;
-    padding: 8px;
-    height: 120px;
+    padding: 0.5rem;
+    height: 11.25rem;
     width: 100%;
     box-sizing: border-box;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     border: 1px solid $color-dark-50;
     resize: none;
 }
