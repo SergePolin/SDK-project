@@ -22,7 +22,7 @@ export default function AddExercise({setIsAddExerciseWindowOpen, setExercises}: 
         <h5 className="width-fill">New exercise</h5>
         <input className="input width-fill" placeholder="Title" value={exercise.title} onChange={(e) => setExercise(prev => {return {...prev, title: e.target.value}})}/>
         <div className="div-horizontal-16 align-center width-fill">
-            <input className="input-98" placeholder="Number of" onChange={(e) => setExercise(prev => {return {...prev, repsOrDuration: Number.parseInt(e.target.value)}})}/>
+            <input className="input-98" placeholder="Number of" value={exercise.repsOrDuration} onChange={(e) => setExercise(prev => {return {...prev, repsOrDuration: Number.parseInt(e.target.value)}})}/>
             <SegmentedControl key="exercise" option1="reps" option2="min" small={true} onChange1={() => {setExercise(prev => {return {...prev, isTimeBased: false}})}} onChange2={() => setExercise(prev => {return {...prev, isTimeBased: true}})}/>
         </div>
         {withWeights ?
