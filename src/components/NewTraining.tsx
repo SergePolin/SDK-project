@@ -40,7 +40,7 @@ import { useLocation } from "react-router-dom";
     {id: "14", title: "Functional Fitness Routine", tags: [], exercises: []} as WorkoutType
 ];
 
-
+const today = new Date();
 
 const NewTraining: React.FC = () => {
   const emojiesList : emojiType[] = [
@@ -55,7 +55,7 @@ const NewTraining: React.FC = () => {
   const location = useLocation();
   const { dateProp } = location.state || {};
 
-    const currentDate = dateProp ?? new Date();
+    const currentDate = dateProp ?? today;
     console.log(currentDate);
     const [training, setTraining] = useState<TrainingType>({date: currentDate, emoji: null, feelings: ""} as TrainingType);
     const [workoutTitle, setWorkoutTitle] = useState<string>("");
@@ -85,16 +85,17 @@ const NewTraining: React.FC = () => {
     }
 
     function checkInput(){
-      return true;
+      return (training.calories && !isNaN(training.calories) &&training.calories > 0 && training.calories < 10000) &&
+      (training.date && training.date <= today) &&
+      (training.hours && !isNaN(training.hours) && training.hours >=0 && training.hours < 24 && training.minutes && !isNaN(training.minutes) && training.minutes >=0 && training.minutes < 60 && (training.hours*60 + training.minutes) !== 0) &&
+      (training.workout && training.isWorkoutSaved);
     }
 
     async function handleSumbit(e : FormEvent){
       e.preventDefault();
-      if (checkInput){
-        console.log(training);
-        const response = await postTraining(training);
-        console.log("submitted", response);
-      }
+      console.log(training);
+      const response = await postTraining(training);
+      console.log("submitted", response);
     }
 
 
@@ -142,7 +143,7 @@ const NewTraining: React.FC = () => {
               {workoutTitle && <h4>{workoutTitle}</h4>}
               <SegmentedControl option1="Saved workout" option2="Custom training" onChange1={() => {setWorkoutType("saved");}} onChange2={() => {setWorkoutType("custom");}} onClick2={()=> {setShowWorkoutChoosing(true)}}/>
           </div>
-          <button type="submit" className="button-filled width-fill" disabled={((!training.date) || (!training.calories || isNaN(training.calories)) || (training.hours === undefined || isNaN(training.hours)) || training.hours*60 + training.minutes === 0 ||(training.minutes === undefined || isNaN(training.minutes)) || !training.workout || training.isWorkoutSaved === undefined) ? true : false}>Save training session</button>
+          <button type="submit" className="button-filled width-fill" disabled={!checkInput()}>Save training session</button>
         </div>
         
         <div className="div-vertical-20">
