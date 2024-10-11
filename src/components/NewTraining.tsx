@@ -85,12 +85,10 @@ const NewTraining: React.FC = () => {
     }
 
     function checkInput(){
-      return (
-        (training.calories && !isNaN(training.calories) && training.calories > 0 && training.calories < 10000) &&
+      return (training.calories && !isNaN(training.calories) &&training.calories > 0 && training.calories < 10000) &&
       (training.date && training.date <= today) &&
-      (training.hours && !isNaN(training.hours) && training.hours >=0 && training.hours < 24 && training.minutes && !isNaN(training.minutes) && training.minutes >=0 && training.minutes < 60 && (training.hours*60 + training.minutes) !== 0) 
-      && (training.workout && training.isWorkoutSaved)
-    );
+      (training.hours && !isNaN(training.hours) && training.hours >=0 && training.hours < 24 && training.minutes && !isNaN(training.minutes) && training.minutes >=0 && training.minutes < 60 && (training.hours*60 + training.minutes) !== 0) &&
+      (training.workout && training.isWorkoutSaved);
     }
 
     async function handleSumbit(e : FormEvent){
