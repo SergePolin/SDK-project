@@ -60,6 +60,13 @@ body{
     gap: 4px;
 }
 
+.div-vertical-24{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: all .5s linear;
+}
+
 .div-vertical-20{
     display: flex;
     flex-direction: column;

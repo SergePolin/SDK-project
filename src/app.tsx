@@ -12,6 +12,7 @@ const NewTraining = lazy(() => import("./components/NewTraining"));
 const Reports = lazy(() => import("./components/Reports"));
 import "./styles/Nav.scss";
 import "./styles/global.scss";
+import Workouts from "./components/Workouts";
 
 const App: React.FC = () => {
   return (
@@ -50,7 +51,7 @@ const App: React.FC = () => {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/sdk/newTraining" element={<NewTraining />} />
-            <Route path="/sdk/reports" element={<Reports />} />
+            <Route path="/sdk/reports" element={<Workouts />} />
             <Route path="/sdk" element={<WorkoutList />} />
             <Route path="/" element={<WorkoutList />} />
           </Routes>

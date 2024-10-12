@@ -17,7 +17,7 @@ import "../styles/NewWorkout.scss";
 import AddExercise from "./AddExercise";
 import { exercise, WorkoutType } from "../types";
 import { postCustomWorkout, postSavedWorkout } from "../services/api";
-
+import Close from "../assets/close.svg";
 
 const tagsMap = new Map([
     ["Jumping rope", JumpingRope],
@@ -37,9 +37,10 @@ const tagsMap = new Map([
 interface NewWorkoutProps{
     isInTraining : boolean;
     handleSaveInTraining?: Function;
+    closeNewWorkout?: Function;
 }
 
-export default function NewWorkout({isInTraining=false, handleSaveInTraining} : NewWorkoutProps){
+export default function NewWorkout({isInTraining=false, handleSaveInTraining, closeNewWorkout} : NewWorkoutProps){
     const [workout, setWorkout] = useState<WorkoutType>({tags: []} as WorkoutType);
 
     function setExercises(exercise : exercise){
@@ -74,7 +75,11 @@ export default function NewWorkout({isInTraining=false, handleSaveInTraining} : 
 
 
     return (<div className="card align-end">
-        <h3 className="width-fill">New workout</h3>
+        <div className="header width-fill">
+            <h3 >New workout</h3>
+            <img className="pointer" src={Close} alt="close" onClick={() => closeNewWorkout()}/>
+        </div>
+        
         <input className="input width-fill" placeholder="Title" value={workout.title} onChange={(e) => setWorkout(prev => {return {...prev, title: e.target.value}})}/>
         <div className="div-horizontal-20">
             <div className="div-vertical-16 width-tags">

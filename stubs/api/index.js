@@ -7,13 +7,12 @@ const workout1 = {
     exercises: [
         { title: "Push ups", repsOrDuration: 12, isTimeBased: false },
         { title: "Plank", repsOrDuration: 4, isTimeBased: true },
-        { title: "Bicep curl", repsOrDuration: 12, isTimeBased: false, weight: 5 }
+        { title: "Bicep curl", repsOrDuration: 12, isTimeBased: false, weight: 5 },
+        { title: "Bicep curl", repsOrDuration: 12, isTimeBased: false, weight: 5 },
+        { title: "Bicep curl", repsOrDuration: 12, isTimeBased: false, weight: 5 },
+        { title: "Bicep curl", repsOrDuration: 12, isTimeBased: false, weight: 5 },
     ],
-    tags: [
-        { icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhl…uZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K', title: 'Weights' },
-        { icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhl…iIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==', title: 'Arms' },
-        { icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhl…kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=', title: 'Abs' }
-    ]
+    tags: ['Weights', 'Arms', 'Abs', 'Chest', 'Back']
 };
 
 const workout2 = {
@@ -24,21 +23,18 @@ const workout2 = {
         { title: "Leg Press", repsOrDuration: 4, isTimeBased: false, weight: 65 },
         { title: "Lunges", repsOrDuration: 2, isTimeBased: true }
     ],
-    tags: [
-        { icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhl…uZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K', title: 'Weights' },
-        { icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhl…iIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==', title: 'Legs' }
-    ]
+    tags: ['Weights', 'Legs']
 };
 
 const workout3 = {
     id: uuidv4(),
     title: "HIIT",
-    excercises: [
-        { title: "Jumping rope", repsOrDuration: 100, isTimeBased: false },
-        { title: "Burpees", repsOrDuration: 3, isTimeBased: true },
-        { title: "Jumping Jacks", repsOrDuration: 50, isTimeBased: false }
+    exercises: [
+        {title: "Jumping rope", repsOrDuration: 100, isTimeBased: false},
+        {title: "Burpees", repsOrDuration: 3, isTimeBased: true},
+        {title: "Jumping Jacks", repsOrDuration: 50, isTimeBased: false}
     ],
-    tags: []
+    tags: ['Cardio']
 }
 
 const savedWorkouts = [workout1, workout3];
