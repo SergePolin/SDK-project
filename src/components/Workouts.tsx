@@ -87,7 +87,7 @@ const Workouts: React.FC = () => {
                 <h3>Saved workouts</h3>
             </div>
             <div className="workouts-grid">
-                {workouts.map(workout => <div key={workout.id} className={`workout shadow pointer ${clickedWorkout === workout.id ? "chosen-workout" : ""}`} onClick={() => clickedWorkout === workout.id ? setClickedWorkout(null) : setClickedWorkout(workout.id)}>
+                {Array.isArray(workouts) && workouts.map(workout => <div key={workout.id} className={`workout shadow pointer ${clickedWorkout === workout.id ? "chosen-workout" : ""}`} onClick={() => clickedWorkout === workout.id ? setClickedWorkout(null) : setClickedWorkout(workout.id)}>
                     <h4>{workout.title}</h4>
                     {clickedWorkout !== workout.id ?
                     <>{Array.isArray(workout.tags) && workout.tags.length !== 0 && <div className="div-horizontal-16 align-end">
