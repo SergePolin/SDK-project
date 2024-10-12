@@ -1,0 +1,101 @@
+@import "./variables.scss";
+
+.button-with-icon{
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 2rem;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: $color-accent;
+    color: $color-white;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid $color-accent;
+    border-radius: 2rem;
+    width: fit-content;
+
+    img{
+        height: 24px;
+        width: 24px;
+    }
+}
+
+.workouts-grid{
+    width: 65.5rem;
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(3, 1fr);
+
+    .workout{
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        border-radius: 32px;
+        width: fit-content;
+        min-width: 336px;
+        background-color: $color-white;
+
+        .exercise-table{
+            font-size: 1rem;
+            font-weight: 400;
+            font-family: 'Lato', sans-serif;
+            color: $color-dark;
+    
+            tr{
+                padding: 0 4px;
+    
+                display: flex;
+                gap: 0.5rem;
+    
+                .td2{
+                    width: 120px;
+                }
+    
+                .td3{
+                    width: 72px;
+                }
+
+                .td4 {
+                    width: 48px;
+                }
+            }
+        }
+
+        transition: all 0.3s;
+    }
+
+    .chosen-workout{
+        grid-column: span 2;
+        transition: all 0.3s;
+        height: fit-content;
+
+        .tags-div{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        
+            .tag {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap:0.5rem;
+                padding: 4px 0.5rem;
+                height: fit-content;
+                
+        
+                .tag-img{
+                    height: 40px;
+                    width: 40px;
+                }
+        
+                .tag-title{
+                    display: inline;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+
+}

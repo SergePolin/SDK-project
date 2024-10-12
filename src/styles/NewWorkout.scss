@@ -1,5 +1,13 @@
 @import "./variables.scss";
 
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
 .input{
     font-size: 1rem;
     font-weight: 400;
