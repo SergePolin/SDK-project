@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/ProgressCircle.scss";
 
 interface ActivityData {
@@ -10,14 +10,13 @@ interface ActivityData {
 interface ProgressCircleProps {
   activities: ActivityData[];
   total: number;
-  period: string;
 }
 
 const ProgressCircle: React.FC<ProgressCircleProps> = ({
   activities,
   total,
-  period,
 }) => {
+  const [period, setPeriod] = useState<string[]>(["Monthly", "Weekly"]);
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (105 / 105) * circumference; // Assuming full circle for simplicity
@@ -31,7 +30,9 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
       <div className="progress-header">
         <h2>Progress</h2>
         <select className="period-selector">
-          <option>{period}</option>
+          {period.map((p) => (
+            <option key={p}>{p}</option>
+          ))}
         </select>
       </div>
       <div className="progress-content">

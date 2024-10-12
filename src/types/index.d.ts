@@ -4,7 +4,7 @@ export interface Workout {
   id: string;
   name: string;
   exercises: Exercise[];
-  duration: number; // in minutes
+  duration: number;
 }
 
 export interface Exercise {
@@ -15,31 +15,34 @@ export interface Exercise {
 
 export interface Day {
   date: string;
-  workouts: string[]; // Array of Workout IDs
+  workouts: string[];
 }
 
 export interface Statistics {
   totalWorkouts: number;
   totalDuration: number;
-  // Add more fields as needed
 }
 
+export interface tag {
+  icon: any;
+  title: string;
+}
 
-export interface exercise{
+export interface exercise {
   title: string;
   repsOrDuration: number;
   isTimeBased: boolean;
   weight?: number;
 }
 
-export interface WorkoutType{
+export interface WorkoutType {
   id: string;
   title: string;
   tags: string[];
   exercises: exercise[];
 }
 
-export interface TrainingType{
+export interface TrainingType {
   id: string;
   date: Date;
   calories: number;
@@ -51,12 +54,23 @@ export interface TrainingType{
   isWorkoutSaved: boolean;
 }
 
-export interface emojiType{
+export interface StatsType {
+  value: number;
+  label: string;
+  unit?: string;
+}
+
+export interface emojiType {
   src: string;
   title: string;
 }
 
-export interface AddExerciseProps{
+export interface AddExerciseProps {
   setIsAddExerciseWindowOpen: Dispatch<React.SetStateAction<boolean>>;
   setExercises: Dispatch<SetStateAction<exercise>>;
+}
+
+export interface CalendarEvent {
+  date: Date;
+  type: "normal" | "important";
 }
