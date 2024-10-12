@@ -4,7 +4,7 @@ export interface Workout {
   id: string;
   name: string;
   exercises: Exercise[];
-  duration: number; // in minutes
+  duration: number;
 }
 
 export interface Exercise {
@@ -21,7 +21,6 @@ export interface Day {
 export interface Statistics {
   totalWorkouts: number;
   totalDuration: number;
-  // Add more fields as needed
 }
 
 export interface tag {
