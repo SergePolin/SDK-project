@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ActivityChart from "./ActivityChart";
-import "../styles/ActivitySection.scss";
 
 function ActivitySection() {
   const [period, setPeriod] = useState<string[]>(["Monthly", "Weekly"]);

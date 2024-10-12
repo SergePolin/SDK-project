@@ -21,7 +21,6 @@ const ActivityChart: React.FC<ActivityChartProps> = ({
           />
         ))}
       </div>
-      <div className="chart-max-value">{maxValue}</div>
     </div>
   );
 };

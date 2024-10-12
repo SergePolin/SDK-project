@@ -54,6 +54,12 @@ export interface TrainingType {
   isWorkoutSaved: boolean;
 }
 
+export interface StatsType {
+  value: number;
+  label: string;
+  unit?: string;
+}
+
 export interface emojiType {
   src: string;
   title: string;

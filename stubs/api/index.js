@@ -63,13 +63,20 @@ router.post('/training/workout', (req, res) => {
 
 const trainings = [{ id: uuidv4(), calories: 450, date: new Date("Thu Oct 03 2024 10:05:24 GMT+0300 (Moscow Standard Time)"), hours: 1, minutes: 30, isWorkoutSaved: true, workout: workout1.id }];
 
-const days = [new Date("Thu Oct 03 2024 10:05:24 GMT+0300 (Moscow Standard Time)")];
+const days = [
+    new Date("Thu Oct 03 2024 10:05:24 GMT+0300 (Moscow Standard Time)"),
+
+];
 
 router.post('/training', (req, res) => {
     const newTraining = { ...req.body, id: uuidv4() };
     trainings.push(newTraining);
     days.push(newTraining.date);
     res.status(201).json(newTraining);
+});
+
+router.get('/trainings', (req, res) => {
+    res.json(trainings);
 });
 
 router.get('/days', (req, res) => {
