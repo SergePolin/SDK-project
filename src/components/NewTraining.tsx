@@ -115,7 +115,14 @@ const NewTraining: React.FC = () => {
               <div className="div-horizontal-8 align-center">
               <img src={CaloriesIcon} alt="Calories"/>
                 <div className="div-horizontal-4 align-center">
-                  <input className="input-68" type="number" onChange={(e) => setTraining(prev => {return {...prev, calories:  Number.parseInt(e.target.value)}})} value={training.calories} min={0} max={10000} placeholder="---"></input>
+                  <input className="input-68" type="number"
+  onChange={(e) => {
+    const value = Number(e.target.value);
+    if (value >= 0 && value <= 10000) {
+      setTraining((prev) => ({ ...prev, calories: value }));
+    }
+  }}
+  value={training.calories || ""} min={0} max={10000} placeholder="---"></input>
                   <p>calories</p>
                 </div>
               </div>
@@ -135,7 +142,7 @@ const NewTraining: React.FC = () => {
                 <h4>How do you feel?</h4>
                 <div className="emojies">
                   {emojiesList && emojiesList.map(item => <div key={item.title} className={training.emoji === item.title ? "emoji chosen" : "emoji"}>
-                  <img src={item.src} alt={item.title} onClick={()=> setTraining(prev => {return {...prev, emoji: item.title}})}/>
+                  <img src={item.src} alt={item.title} onClick={()=> training.emoji && training.emoji === item.title ? setTraining(prev => {return {...prev, emoji: null}}) : setTraining(prev => {return {...prev, emoji: item.title}})}/>
                   </div>)}
                 </div>
                 <textarea className="textarea" onChange={(e) => setTraining(prev => {return {...prev, feelings: e.target.value}})} value={training.feelings} placeholder="Here you can describe your feelings and thoutghts..." />

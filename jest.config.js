@@ -9,4 +9,11 @@ module.exports = {
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy", // Mock CSS and SCSS files
   },
+  collectCoverage: true,
+  coverageDirectory: 'coverage', // Directory for the reports
+  coverageReporters: ['html', 'text'], // Types of reports to generate
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}', // Which files to include
+    '!src/index.tsx', // Exclude certain files (like the main entry file)
+  ],
 };
