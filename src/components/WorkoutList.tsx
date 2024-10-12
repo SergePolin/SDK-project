@@ -13,21 +13,25 @@ interface CalendarEvent {
   type: "normal" | "important";
 }
 
-
 function WorkoutList() {
   const activityData = [32, 20, 25, 15, 28, 22, 26];
   const [events, setEvents] = useState<CalendarEvent[]>([]);
+  const [period, setPeriod] = useState<string[]>(["Monthly", "Weekly"]);
   const navigate = useNavigate();
 
-  function handleDayClick(day: Date){
-    navigate("/sdk/newTraining", {state: {dateProp: day}});
+  function handleDayClick(day: Date) {
+    navigate("/sdk/newTraining", { state: { dateProp: day } });
   }
 
   useEffect(() => {
     async function eventsFetch() {
       const response = await fetchDays();
       console.log(response);
-      setEvents(response.data.map((event) => {return {date: event, type: "important"}}));
+      setEvents(
+        response.data.map((event) => {
+          return { date: event, type: "important" };
+        })
+      );
     }
 
     eventsFetch();
@@ -36,8 +40,13 @@ function WorkoutList() {
   return (
     <div className="div-horizontal-20">
       <div className="div-vertical-20">
-        <Calendar events={events} onDateClick={handleDayClick}/>
-        <button className="new-training-btn" onClick={() => navigate("/sdk/newTraining")}>New training session</button>
+        <Calendar events={events} onDateClick={handleDayClick} />
+        <button
+          className="new-training-btn"
+          onClick={() => navigate("/sdk/newTraining")}
+        >
+          New training session
+        </button>
         <Stats
           items={[
             { value: 50, label: "Workouts completed" },
@@ -55,15 +64,16 @@ function WorkoutList() {
               { type: "Yoga", value: 15, color: "#d94535" },
             ]}
             total={40}
-            period="Monthly"
+            period={period}
           />
         </div>
         <div className="activity-section">
           <div className="activity-header">
             <h2>Activity</h2>
             <select>
-              <option>Monthly</option>
-              <option>Weekly</option>
+              {period.map((p) => (
+                <option key={p}>{p}</option>
+              ))}
             </select>
           </div>
           <ActivityChart data={activityData} />

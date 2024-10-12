@@ -10,7 +10,7 @@ interface ActivityData {
 interface ProgressCircleProps {
   activities: ActivityData[];
   total: number;
-  period: string;
+  period: string[];
 }
 
 const ProgressCircle: React.FC<ProgressCircleProps> = ({
@@ -31,7 +31,9 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
       <div className="progress-header">
         <h2>Progress</h2>
         <select className="period-selector">
-          <option>{period}</option>
+          {period.map((p) => (
+            <option key={p}>{p}</option>
+          ))}
         </select>
       </div>
       <div className="progress-content">
