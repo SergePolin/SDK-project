@@ -63,3 +63,8 @@ export interface AddExerciseProps {
   setIsAddExerciseWindowOpen: Dispatch<React.SetStateAction<boolean>>;
   setExercises: Dispatch<SetStateAction<exercise>>;
 }
+
+export interface CalendarEvent {
+  date: Date;
+  type: "normal" | "important";
+}
