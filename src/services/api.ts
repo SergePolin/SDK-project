@@ -19,3 +19,14 @@ export const fetchTrainings = () =>
   axios.get<TrainingType[]>(`${API_BASE}/trainings`);
 
 export const fetchDays = () => axios.get<Date[]>(`${API_BASE}/days`);
+
+export const fetchTrainingByDate = (date: Date) => {
+  return axios.get<TrainingType>(`${API_BASE}/training`, { params: { date: date } });
+};
+
+export const fetchWorkoutById = (id: string, isWorkoutSaved: boolean) => {
+  if (isWorkoutSaved){
+    return axios.get<WorkoutType>(`${API_BASE}/workout`, { params: { id } })
+  }
+  return axios.get<WorkoutType>(`${API_BASE}/training/workout`, { params: { id } });
+};

@@ -57,7 +57,7 @@ router.post('/training/workout', (req, res) => {
     res.status(201).json(newWorkout);
 });
 
-const trainings = [{ id: uuidv4(), calories: 450, date: new Date("Thu Oct 03 2024 10:05:24 GMT+0300 (Moscow Standard Time)"), hours: 1, minutes: 30, isWorkoutSaved: true, workout: workout1.id }];
+const trainings = [{ id: uuidv4(), calories: 450, date: new Date("Thu Oct 03 2024 10:05:24 GMT+0300 (Moscow Standard Time)"), emoji: "fuzzy", hours: 1, minutes: 30, isWorkoutSaved: true, workout: workout1.id }];
 
 const days = [
     new Date("Thu Oct 03 2024 10:05:24 GMT+0300 (Moscow Standard Time)"),
@@ -69,6 +69,46 @@ router.post('/training', (req, res) => {
     trainings.push(newTraining);
     days.push(newTraining.date);
     res.status(201).json(newTraining);
+});
+
+router.get('/training', (req, res) => {
+    const { date } = req.query;
+    if (!date) {
+        return res.status(400).json({ message: 'Date query parameter is required' });
+    }
+    const formattedDate = new Date(date);
+    const result = trainings.find(t => new Date(t.date).toDateString() === formattedDate.toDateString());
+    if (result) {
+        res.json(result);
+    } else {
+        res.status(404).json({ message: 'Training not found for the specified date' });
+    }
+});
+
+router.get('/training/workout', (req, res) => {
+    const { id } = req.query;
+    if (!id) {
+        return res.status(400).json({ message: 'Id query parameter is required' });
+    }
+    const result = trainingWorkouts.find(w => w.id === id);
+    if (result) {
+        res.json(result);
+    } else {
+        res.status(404).json({ message: 'Training with such workout not found' });
+    }
+});
+
+router.get('/workout', (req, res) => {
+    const { id } = req.query;
+    if (!id) {
+        return res.status(400).json({ message: 'Id query parameter is required' });
+    }
+    const result = savedWorkouts.find(w => w.id === id);
+    if (result) {
+        res.json(result);
+    } else {
+        res.status(404).json({ message: 'Workout not found' });
+    }
 });
 
 router.get('/trainings', (req, res) => {

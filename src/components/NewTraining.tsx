@@ -22,24 +22,6 @@ import { useLocation } from "react-router-dom";
 
 
 
-  const workoutOptions: WorkoutType[] = [
-    {id: "0", title: "Total Body Burn", tags: [], exercises: []} as WorkoutType,
-    {id: "1", title: "Strength & Conditioning", tags: [], exercises: []} as WorkoutType,
-    {id: "2", title: "HIIT Power Circuit", tags: [], exercises: []} as WorkoutType,
-    {id: "3", title: "Cardio Blast", tags: [], exercises: []} as WorkoutType,
-    {id: "4", title: "Core Crusher", tags: [], exercises: []} as WorkoutType,
-    {id: "5", title: "Upper Body Strength", tags: [], exercises: []} as WorkoutType,
-    {id: "6", title: "Leg Day", tags: [], exercises: []} as WorkoutType,
-    {id: "7", title: "Full Body Sculpt", tags: [], exercises: []} as WorkoutType,
-    {id: "8", title: "Pilates Flow", tags: [], exercises: []} as WorkoutType,
-    {id: "9", title: "Yoga for Flexibility", tags: [], exercises: []} as WorkoutType,
-    {id: "10", title: "Tabata Sweat Session", tags: [], exercises: []} as WorkoutType,
-    {id: "11", title: "Bootcamp Challenge", tags: [], exercises: []} as WorkoutType,
-    {id: "12", title: "Endurance Builder", tags: [], exercises: []} as WorkoutType,
-    {id: "13", title: "Chest & Back Pump", tags: [], exercises: []} as WorkoutType,
-    {id: "14", title: "Functional Fitness Routine", tags: [], exercises: []} as WorkoutType
-];
-
 const today = new Date();
 
 const NewTraining: React.FC = () => {
