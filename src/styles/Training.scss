@@ -1,0 +1,40 @@
+@import "./variables.scss";
+
+.feelings-description{
+    max-width: 20rem;
+    
+    &.default {
+        opacity: 0.7;
+    }
+}
+
+.tags{
+    display: inline-grid;
+        row-gap: 0.5rem;
+        column-gap: 0.5rem;
+        grid-template-columns: repeat(7, 1fr);
+        max-width: 412px;
+        padding: 0;
+    
+        .tag-img{
+            height: 40px;
+            width: 40px;
+        }
+}
+
+.row{
+    width: 100vw;
+
+    .td2{
+        width: 40%;
+    }
+
+    .td3{
+        width: 30%;
+    }
+
+    .td4{
+        width: 25%;
+    }
+}
+

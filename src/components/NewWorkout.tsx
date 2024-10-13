@@ -85,7 +85,7 @@ export default function NewWorkout({isInTraining=false, handleSaveInTraining, cl
             <div className="div-vertical-16 width-tags">
                 <h4>Select the type of workout, the equipment, and the muscle groups.</h4>
                 <div className="tags-chosen">
-                {workout.tags && workout.tags.map( tag => <img className="tag-img pointer"  key={tag} src={tagsMap.get(tag)} alt={tag} onClick={() => setWorkout(prev => {return {...prev, tags: prev.tags.filter(prevTag => prevTag !== tag)}})}/>
+                {workout.tags && workout.tags.map( tag => <img className="tag-img pointer" key={tag} src={tagsMap.get(tag)} alt={tag} onClick={() => setWorkout(prev => {return {...prev, tags: prev.tags.filter(prevTag => prevTag !== tag)}})}/>
                     )}
                 </div>
                 <div className="tags-div">

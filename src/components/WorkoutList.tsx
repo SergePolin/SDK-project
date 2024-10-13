@@ -8,6 +8,8 @@ import { fetchDays, fetchTrainings, fetchWorkouts } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import ActivitySection from "./ActivitySection";
 import { StatsType, TrainingType, WorkoutType } from "../types";
+import Training from "./Training";
+import { AnimatePresence, motion } from "framer-motion";
 interface CalendarEvent {
   date: Date;
   type: "normal" | "important";
@@ -20,9 +22,15 @@ function WorkoutList() {
     { value: 0, label: "Workout's completed" },
     { value: 0, label: "Calories burned", unit: "kcal" },
   ]);
+  const [openedTrainingDate, setOpenedTrainingDate] = useState<Date>();
   const navigate = useNavigate();
 
-  function handleDayClick(day: Date) {
+  function handleEventClick(day: Date){
+    setOpenedTrainingDate(day);
+    console.log(day)
+  }
+
+  function handleDateClick(day: Date) {
     navigate("/sdk/newTraining", { state: { dateProp: day } });
   }
 
@@ -61,7 +69,7 @@ function WorkoutList() {
   return (
     <div className="div-horizontal-20">
       <div className="div-vertical-20">
-        <Calendar events={events} onDateClick={handleDayClick} />
+        <Calendar events={events} onDateClick={handleDateClick} onEventClick={handleEventClick}/>
         <button
           className="new-training-btn"
           onClick={() => navigate("/sdk/newTraining")}
@@ -70,6 +78,18 @@ function WorkoutList() {
         </button>
         <Stats items={stats} />
       </div>
+      <AnimatePresence >
+      {openedTrainingDate &&
+        <motion.div
+          initial={{ opacity: 0, width:0, overflow: "hidden"}}
+          key="training-info"
+          animate={{ opacity: 1, width: 'auto' }}
+          exit={{ opacity: 0, width: 0, overflow: "hidden"}}
+          transition={{ duration: 0.5 }}
+          className="shadow motion-div">
+          <Training date={openedTrainingDate} onClose={()=>{setOpenedTrainingDate(null)}}/>
+        </motion.div>} 
+      </AnimatePresence>
       <div className="div-vertical-20">
         <ProgressSection />
         <ActivitySection />

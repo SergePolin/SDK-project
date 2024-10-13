@@ -89,7 +89,7 @@ const Calendar: React.FC<CalendarProps> = ({ events = [], onEventClick, onDateCl
             <span>{formattedDate}</span>
           </div>
         );
-        console.log(day, formattedDate);
+        // console.log(day, formattedDate);
         day = addDays(day, 1);
       }
       rows.push(
