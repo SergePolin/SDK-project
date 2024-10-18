@@ -7,13 +7,10 @@ import "../styles/global.scss";
 import { fetchDays, fetchTrainings, fetchWorkouts } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import ActivitySection from "./ActivitySection";
-import { StatsType, TrainingType, WorkoutType } from "../types";
+import { CalendarEvent, StatsType, TrainingType, WorkoutType } from "../types";
 import Training from "./Training";
 import { AnimatePresence, motion } from "framer-motion";
-interface CalendarEvent {
-  date: Date;
-  type: "normal" | "important";
-}
+
 
 function WorkoutList() {
   const [events, setEvents] = useState<CalendarEvent[]>([]);

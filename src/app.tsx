@@ -9,7 +9,6 @@ import {
 
 const WorkoutList = lazy(() => import("./components/WorkoutList"));
 const NewTraining = lazy(() => import("./components/NewTraining"));
-const Reports = lazy(() => import("./components/Reports"));
 import "./styles/Nav.scss";
 import "./styles/global.scss";
 import Workouts from "./components/Workouts";

@@ -15,7 +15,7 @@ import Plus from "../assets/plus.svg";
 import "../styles/global.scss";
 import "../styles/NewWorkout.scss";
 import AddExercise from "./AddExercise";
-import { exercise, WorkoutType } from "../types";
+import { exercise, NewWorkoutProps, WorkoutType } from "../types";
 import { postCustomWorkout, postSavedWorkout } from "../services/api";
 import Close from "../assets/close.svg";
 
@@ -34,11 +34,7 @@ const tagsMap = new Map([
     ["Back", Back]
   ]);
 
-interface NewWorkoutProps{
-    isInTraining : boolean;
-    handleSaveInTraining?: Function;
-    closeNewWorkout?: Function;
-}
+
 
 export default function NewWorkout({isInTraining=false, handleSaveInTraining, closeNewWorkout} : NewWorkoutProps){
     const [workout, setWorkout] = useState<WorkoutType>({tags: []} as WorkoutType);

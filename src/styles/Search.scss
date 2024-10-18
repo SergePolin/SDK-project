@@ -1,0 +1,24 @@
+@import "./variables.scss";
+
+.search {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem 1rem;
+    gap: 0.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid $color-accent;
+    align-items: center;
+    width: fit-content;
+    transition: width 0.3s ease-in;
+    height: fit-content;
+
+    input{
+        background: none;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        font-weight: 400;
+        font-family: 'Lato', sans-serif;
+        color: $color-dark;
+    }
+}

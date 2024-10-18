@@ -3,6 +3,7 @@ import { Datepicker, setOptions, localeEn, MbscCalendarColor } from '@mobiscroll
 import { FC, useState } from 'react';
 import React from 'react';
 import "../styles/global.scss";
+import { DatePickerProps } from "../types";
 
 setOptions({
   locale: localeEn,
@@ -10,9 +11,7 @@ setOptions({
   themeVariant: 'light',
 });
 
-interface DatePickerProps{
-    onDateChoose: (chosenDate: Date) => void;
-}
+
 
 export default function DatePick({onDateChoose}: DatePickerProps){
     const color : MbscCalendarColor = {highlight: "rgba(#D63D1C, 0.5)", background: '#D63D1C'}

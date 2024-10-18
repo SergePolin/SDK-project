@@ -3,10 +3,12 @@ import ArrowDown from "../assets/arrow_down.svg";
 import ArrowUp from "../assets/arrow_up.svg";
 import "../styles/Dropdown.scss";
 import "../styles/global.scss";
-import { WorkoutType } from "../types";
+import { DropdownProps, WorkoutType } from "../types";
 import {CSSTransition} from "react-transition-group";
 
-const Dropdown = ({title, options, onChoose}) => {
+
+
+const Dropdown = ({title, options, onChoose} : DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(title);
 

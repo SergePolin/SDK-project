@@ -1,0 +1,61 @@
+@import "./variables.scss";
+
+.filters{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    width: 100%;
+    background-color: $color-white;
+    border-bottom: 1px solid $color-accent;
+    border-top: 1px solid $color-accent;
+    align-items: center;
+
+    .filter{
+        display: flex;
+        flex-direction: row;
+        width: 120px;
+        height: 20px;
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        justify-content: space-between;
+    }
+
+    .devider{
+        box-sizing: border-box;
+        // width: 2px;
+        height: 234px;
+        border: 1px solid #EFEFEF;
+    }
+
+    .filters-buttons{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .text-button{
+        border: none;
+        padding: 0.5rem 0;
+        background: none;
+        align-items: center;
+        width: fit-content;
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: 'Lato', sans-serif;
+        color: $color-dark;
+        height: fit-content;
+        text-align: center;
+        transition: all 0.2s;
+
+    &:not(:disabled):hover{
+        opacity: 0.9;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    }
+}

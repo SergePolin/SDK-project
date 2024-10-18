@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen} from "@testing-library/react";
+import { act, fireEvent, render, screen} from "@testing-library/react";
 import '@testing-library/jest-dom';
 import { BrowserRouter } from "react-router-dom";
 import NewTraining from "../components/NewTraining";
@@ -20,11 +20,12 @@ describe('NewTraining component', () => {
     (axios.get as jest.Mock).mockResolvedValue({data: mockWorkouts });
 
     
-    render(
-      <BrowserRouter>
-        <NewTraining />
-      </BrowserRouter>
-    );
+      render(
+        <BrowserRouter>
+          <NewTraining />
+        </BrowserRouter>
+      );
+    
     
   });
 
@@ -73,16 +74,16 @@ describe('NewTraining component', () => {
   test('form submission button is disabled when fields are invalid', () => {
     const submitButton = screen.getByRole('button', { name: /Save training session/i });
     
-    // Initially, the button should be disabled
+    
     expect(submitButton).toBeDisabled();
     
-    // Fill out the form partially
+    
     fireEvent.change(screen.getByPlaceholderText('---'), { target: { value: '100' } });
     
-    // Submit button should still be disabled
+    
     expect(submitButton).toBeDisabled();
     
-    // Complete the form with valid data
+    
     fireEvent.change(screen.getAllByPlaceholderText('--')[0], { target: { value: '1' } });
     fireEvent.change(screen.getAllByPlaceholderText('--')[1], { target: { value: '30' } });
   
@@ -90,7 +91,7 @@ describe('NewTraining component', () => {
 
     fireEvent.click(screen.getByText('Choose workout'));
     fireEvent.click(screen.getByText(/Total Body Burn/));
-    // The submit button should now be enabled
+    
     expect(submitButton).not.toBeDisabled();
   });
 });

@@ -113,6 +113,10 @@
         font-weight: 500;
         font-family: 'Lato', sans-serif;
         color: $color-dark;
+
+        &:hover{
+            background-color: $color-accent-30;
+        }
     }
 }
 
