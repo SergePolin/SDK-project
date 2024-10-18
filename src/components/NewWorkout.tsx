@@ -111,12 +111,14 @@ export default function NewWorkout({isInTraining=false, handleSaveInTraining, cl
                 <h4>Exercises</h4>
                 <table className="div-vertical-8 exercise-table">
                     {workout.exercises && workout.exercises.map((exercise, index) => {
-                        return (<tr>
+                        return (<tbody className="width-fill">
+                            <tr>
                             <td className="td1">{index + 1}.</td>
                             <td className="td2">{exercise.title}</td>
                             <td className="td3">{exercise.repsOrDuration} {exercise.isTimeBased ? "min" : "reps"}</td>
                             {!isNaN(exercise.weight) && <td className="td4">{exercise.weight} kg</td>}
-                        </tr>);
+                        </tr>
+                        </tbody>);
                     })}
                 </table>
                 {!isAddExerciseWindowOpen ? <button type="button" className="outlined-button-with-icon pointer" onClick={() => setIsAddExerciseWindowOpen(true)}>
