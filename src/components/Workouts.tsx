@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Day, Workout, WorkoutType } from "../types";
-// import { fetchDays, fetchWorkouts } from "../services/api";
-import ProgressCircle from "./ProgressCircle";
+import { WorkoutType } from "../types";
 import NewWorkout from "./NewWorkout";
 import { fetchWorkouts } from "../services/api";
 import "../styles/global.scss";
@@ -20,6 +18,7 @@ import Legs from "../assets/legs.svg";
 import Chest from "../assets/chest.svg";
 import ABS from "../assets/abs.svg";
 import Back from "../assets/back.svg";
+import Search from "./Search";
 
 
 const tagsMap = new Map([
@@ -43,6 +42,8 @@ const Workouts: React.FC = () => {
 
   const [clickedWorkout, setClickedWorkout] = useState<string>(); //id
 
+  const [searchValue, setSearchValue] = useState<string>("");
+
   useEffect(() => {
     fetchWorkouts().then((response) => setWorkouts(response.data));
   }, []);
@@ -51,17 +52,11 @@ const Workouts: React.FC = () => {
     console.log(clickedWorkout);
   }, [clickedWorkout])
 
-  const activities = [
-    { type: "Stretching", value: 20, color: "#FF6B6B" },
-    { type: "Cardio", value: 30, color: "#4ECDC4" },
-    { type: "Strength", value: 40, color: "#45B7D1" },
-    { type: "Yoga", value: 15, color: "#FFA07A" },
-  ];
-
-  const totalHours = activities.reduce(
-    (sum, activity) => sum + activity.value,
-    0
-  );
+  const filteredWorkouts = searchValue
+    ? Array.isArray(workouts) && workouts.filter(workout =>
+        workout.title.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    : Array.isArray(workouts) && workouts;
 
   return (
     <div className={`div-vertical-48 ${isCreateWorkoutOpen && "align-center"}`}>
@@ -74,20 +69,24 @@ const Workouts: React.FC = () => {
           {isCreateWorkoutOpen && 
             <motion.div
               initial={{ opacity: 0, height: 0, overflow: "hidden"}}
-              key="content3"
+              key="newworkout"
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0, overflow: "hidden"}}
               transition={{ duration: 0.5 }}
               className="shadow motion-div">
               <NewWorkout isInTraining={false} closeNewWorkout={() => setIsCreateWorkoutOpen(false)}/>
           </motion.div>
-        }</AnimatePresence>
+        }
+        </AnimatePresence>
         <div className="div-vertical-24">
-            <div className="workouts-header">
+            <div className="workouts-header align-center">
                 <h3>Saved workouts</h3>
+                <div className="div-horizontal-20 align-center">
+                  <Search value={searchValue} setValue={setSearchValue}/>
+                </div>
             </div>
             <div className="workouts-grid">
-                {Array.isArray(workouts) && workouts.map(workout => <div key={workout.id} className={`workout shadow pointer ${clickedWorkout === workout.id ? "chosen-workout" : ""}`} onClick={() => clickedWorkout === workout.id ? setClickedWorkout(null) : setClickedWorkout(workout.id)}>
+                {Array.isArray(filteredWorkouts) && filteredWorkouts.map(workout => <div key={workout.id} className={`workout shadow pointer ${clickedWorkout === workout.id ? "chosen-workout" : ""}`} onClick={() => clickedWorkout === workout.id ? setClickedWorkout(null) : setClickedWorkout(workout.id)}>
                     <h4>{workout.title}</h4>
                     {clickedWorkout !== workout.id ?
                     <>{Array.isArray(workout.tags) && workout.tags.length !== 0 && <div className="div-horizontal-16 align-end">
@@ -142,20 +141,9 @@ const Workouts: React.FC = () => {
             </div>
             
         </div>
+        
     </div>
-    // <div className="reports">
-    //   {/* <NewWorkout isInTraining={false}/> */}
-
-      
-    //   {activities.length > 0 && (
-    //     <ProgressCircle
-    //       activities={activities}
-    //       total={totalHours}
-    //       period="Monthly"
-    //     />
-    //   )}
-    //   {/* Other report components */}
-    // </div>
+    
   );
 };
 

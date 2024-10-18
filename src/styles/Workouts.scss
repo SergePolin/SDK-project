@@ -21,6 +21,32 @@
     }
 }
 
+.workouts-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .outlined-button-with-icon{
+        display: flex;
+        flex-direction: row;
+        border: 1px solid $color-accent;
+        border-radius: 24px;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: transparent;
+        align-items: center;
+        width: fit-content;
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: 'Lato', sans-serif;
+        color: $color-dark;
+
+        &.filled{
+            color: $color-white;
+            background-color: $color-accent;
+        }
+    }
+}
 .workouts-grid{
     width: 65.5rem;
     display: grid;
