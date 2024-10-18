@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, act, waitFor } from "@testing-library/react";
 import '@testing-library/jest-dom';
 import NewWorkout from "../components/NewWorkout"; // Adjust the import based on your file structure
 import { postCustomWorkout, postSavedWorkout } from "../services/api"; // Adjust imports as necessary
@@ -73,7 +73,7 @@ describe("NewWorkout component", () => {
     });
 
     fireEvent.click(screen.getByRole("button", { name: /Add/i }));
-    await waitFor(() => expect(screen.getByText(/Push Ups/)).toBeInTheDocument());
+    expect(screen.getByText(/Push Ups/)).toBeInTheDocument();
   });
 
   test("saves workout as custom workout", async () => {
@@ -82,7 +82,7 @@ describe("NewWorkout component", () => {
       data: { message: "Workout saved successfully" },
     });
   
-    render(<NewWorkout isInTraining={true} />);
+      render(<NewWorkout isInTraining={true} />);
   
     fireEvent.change(screen.getByPlaceholderText("Title"), { target: { value: "My Workout" } });
   
@@ -107,17 +107,20 @@ describe("NewWorkout component", () => {
   
     fireEvent.click(screen.getByRole("button", { name: /Add/i }));
   
-    await waitFor(() => {
-      expect(screen.getByText(/Push Ups/)).toBeInTheDocument();
-    });
+    expect(screen.getByText(/Push Ups/)).toBeInTheDocument();
+    
   
     const saveButton = screen.getByRole("button", { name: /Save as custom workout/i });
     fireEvent.click(saveButton);
     
+    
+    expect(postSavedWorkout).toHaveBeenCalledWith(expect.objectContaining({ title: "My Workout" }));
+    
     await waitFor(() => {
-      expect(postSavedWorkout).toHaveBeenCalledWith(expect.objectContaining({ title: "My Workout" }));
       expect(screen.getByText("Saved as custom workout!")).toBeInTheDocument();
     });
+    
+    
   });
 
   test("disables save button when title or exercises are missing", () => {
@@ -184,16 +187,16 @@ describe("NewWorkout component", () => {
   
     fireEvent.click(screen.getByRole("button", { name: /Add/i }));
   
-    await waitFor(() => {
-      expect(screen.getByText(/Push Ups/)).toBeInTheDocument();
-    });
+    
+    expect(screen.getByText(/Push Ups/)).toBeInTheDocument();
+    
   
     const saveButton = screen.getByRole("button", { name: "Save" });
     fireEvent.click(saveButton);
     
-    await waitFor(() => {
-      expect(postCustomWorkout).toHaveBeenCalledWith(expect.objectContaining({ title: "My Workout" }));
-    });
+    
+    expect(postCustomWorkout).toHaveBeenCalledWith(expect.objectContaining({ title: "My Workout" }));
+    
   });
 
   test("handles save not in training", async () => {
@@ -227,15 +230,14 @@ describe("NewWorkout component", () => {
   
     fireEvent.click(screen.getByRole("button", { name: /Add/i }));
   
-    await waitFor(() => {
-      expect(screen.getByText(/Push Ups/)).toBeInTheDocument();
-    });
+    
+    expect(screen.getByText(/Push Ups/)).toBeInTheDocument();
   
     const saveButton = screen.getByRole("button", { name: "Save" });
     fireEvent.click(saveButton);
     
-    await waitFor(() => {
-      expect(postSavedWorkout).toHaveBeenCalledWith(expect.objectContaining({ title: "My Workout" }));
-    });
+    
+    expect(postSavedWorkout).toHaveBeenCalledWith(expect.objectContaining({ title: "My Workout" }));
+    
   });
 });

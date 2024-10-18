@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor, act } from "@testing-library/react";
+import { fireEvent, render, screen} from "@testing-library/react";
 import '@testing-library/jest-dom';
 import { BrowserRouter } from "react-router-dom";
 import NewTraining from "../components/NewTraining";
@@ -66,9 +66,7 @@ describe('NewTraining component', () => {
     expect(axios.get).toHaveBeenCalledWith("/api/workouts");
     fireEvent.click(screen.getByText('Choose workout'));
     fireEvent.click(screen.getByText(/Total Body Burn/));
-    await waitFor(() => {
-      expect(screen.getAllByText(/Total Body Burn/)[0]).toBeInTheDocument();
-    });
+    expect(screen.getAllByText(/Total Body Burn/)[0]).toBeInTheDocument();
   });
 
 

@@ -2,7 +2,6 @@ import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import DatePick from "../components/DatePicker";
-import { act } from "react";
 import { Datepicker } from '@mobiscroll/react';
 
 jest.mock('@mobiscroll/react', () => ({
