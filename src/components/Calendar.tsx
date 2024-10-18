@@ -16,17 +16,9 @@ import "../styles/calendar.scss";
 import "../styles/global.scss";
 import Prev from "../assets/prev.svg";
 import Next from "../assets/next.svg";
+import { CalendarProps } from "../types";
 
-interface CalendarEvent {
-  date: Date;
-  type: "normal" | "important";
-}
 
-interface CalendarProps {
-  events?: CalendarEvent[];
-  onDateClick?: (date: Date) => void;
-  onEventClick?: (date: Date) => void;
-}
 
 const Calendar: React.FC<CalendarProps> = ({ events = [], onEventClick, onDateClick }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -89,7 +81,6 @@ const Calendar: React.FC<CalendarProps> = ({ events = [], onEventClick, onDateCl
             <span>{formattedDate}</span>
           </div>
         );
-        // console.log(day, formattedDate);
         day = addDays(day, 1);
       }
       rows.push(

@@ -119,6 +119,11 @@ body{
     height: fit-content;
 }
 
+.motion-div2{
+    background-color: none;
+    width: fit-content;
+    height: fit-content;
+}
 .shadow {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -183,6 +188,18 @@ input[type=number] {
     cursor: pointer;
 }
 
+.text-accent{
+    color: $color-accent;
+}
+
+.center{
+    display: flex;
+
+    height: 20rem;
+    width: 65.5rem;
+    justify-content: center;
+    align-items: center;
+}
 
 .button-filled{
     border: 1px solid $color-accent;
@@ -215,6 +232,9 @@ input[type=number] {
     width: 100%;
 }
 
+.height-fill {
+    height: 100%;
+}
 
 
 /* CSS transitions for react-transition-group */

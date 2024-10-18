@@ -74,3 +74,41 @@ export interface CalendarEvent {
   date: Date;
   type: "normal" | "important";
 }
+
+export interface FiltersProps {
+  setFilters: Function;
+  onCansel: Function;
+  defaultFilters: string[];
+}
+
+export interface CalendarEvent {
+  date: Date;
+  type: "normal" | "important";
+}
+
+export interface CalendarProps {
+  events?: CalendarEvent[];
+  onDateClick?: (date: Date) => void;
+  onEventClick?: (date: Date) => void;
+}
+
+export interface DatePickerProps{
+  onDateChoose: (chosenDate: Date) => void;
+}
+
+export interface DropdownProps{
+  title: string;
+  options: WorkoutType[];
+  onChoose: Function;
+}
+
+export interface NewWorkoutProps{
+  isInTraining : boolean;
+  handleSaveInTraining?: Function;
+  closeNewWorkout?: Function;
+}
+
+export interface TrainingProps{
+  date: Date;
+  onClose: Function;
+}

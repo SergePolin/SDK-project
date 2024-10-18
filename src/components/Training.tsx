@@ -22,7 +22,7 @@ import Legs from "../assets/legs.svg";
 import Chest from "../assets/chest.svg";
 import ABS from "../assets/abs.svg";
 import Back from "../assets/back.svg";
-import { emojiType, TrainingType, WorkoutType } from "../types";
+import { emojiType, TrainingProps, TrainingType, WorkoutType } from "../types";
 import { fetchTrainingByDate, fetchWorkoutById} from "../services/api";
 import Close from "../assets/close.svg";
 
@@ -53,10 +53,7 @@ const tagsMap = new Map([
 
 const emojiesMap = new Map([["happy", SmileFace], ["strong", BicepEmoji], ["anoxious", AnxiousFace], ["fuzzy", FaceWithHearts], ["crying", CryingFace], ["dizzy", SpiralEyesFace], ["hot", HotFace]]);
 
-interface TrainingProps{
-    date: Date;
-    onClose: Function;
-}
+
 export default function Training({date, onClose}: TrainingProps) {
   
     
