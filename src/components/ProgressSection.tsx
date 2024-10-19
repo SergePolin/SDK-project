@@ -1,18 +1,22 @@
 import ProgressCircle from "./ProgressCircle";
 import React from "react";
 
-function ProgressSection() {
+interface Activity {
+  type: string;
+  value: number;
+  color: string;
+}
+
+interface ProgressSectionProps {
+  activities: Activity[];
+  total: number;
+}
+
+function ProgressSection({ activities, total }: ProgressSectionProps) {
+  console.log(activities, total);
   return (
     <div className="progress-circles">
-      <ProgressCircle
-        activities={[
-          { type: "Stretching", value: 20, color: "#d94535" },
-          { type: "Cardio", value: 30, color: "#d94535" },
-          { type: "Strength", value: 40, color: "#d94535" },
-          { type: "Yoga", value: 15, color: "#d94535" },
-        ]}
-        total={40}
-      />
+      <ProgressCircle activities={activities} total={total} />
     </div>
   );
 }
