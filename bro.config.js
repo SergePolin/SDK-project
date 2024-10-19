@@ -34,6 +34,6 @@ module.exports = {
   },
   config: {
     // "sdk.api": "/api",
-    "sdk.api": "http://mocksdk.eastus.azurecontainer.io/api",
+    "sdk.api": "https://mock-sdk-production.up.railway.app/",
   },
 };
