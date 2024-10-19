@@ -21,9 +21,9 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (105 / 105) * circumference; // Assuming full circle for simplicity
 
-  if (!activities || activities.length === 0) {
-    return null;
-  }
+  // if (!activities || activities.length === 0) {
+  //   return null;
+  // }
 
   return (
     <div className="progress-container">
