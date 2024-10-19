@@ -71,6 +71,9 @@ const Calendar: React.FC<CalendarProps> = ({ events = [], onEventClick, onDateCl
         const isCurrentMonth = isSameMonth(day, monthStart);
         const event = events.find((e) => isSameDay(e.date, day));
 
+        console.log(day)
+        day.setHours(day.getHours() + 4)
+        console.log(day)
         let date = day;
         days.push(
           <div
