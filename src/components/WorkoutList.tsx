@@ -35,8 +35,7 @@ function WorkoutList() {
   const [totalWorkouts, setTotalWorkouts] = useState<number>(0);
   const navigate = useNavigate();
 
-  function handleEventClick(day: Date) {
-    day.setHours(day.getHours() + 4);
+  function handleEventClick(day: Date){
     setOpenedTrainingDate(day);
     console.log(day);
   }

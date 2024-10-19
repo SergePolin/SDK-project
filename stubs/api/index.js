@@ -77,7 +77,7 @@ router.get('/training', (req, res) => {
         return res.status(400).json({ message: 'Date query parameter is required' });
     }
     const formattedDate = new Date(date);
-    const result = trainings.find(t => new Date(t.date.setHours(t.date.getHours() + 4)).toDateString() === formattedDate.toDateString());
+    const result = trainings.find(t => new Date(t.date).toDateString() === formattedDate.toDateString());
     if (result) {
         res.json(result);
     } else {
