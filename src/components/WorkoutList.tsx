@@ -36,6 +36,7 @@ function WorkoutList() {
   const navigate = useNavigate();
 
   function handleEventClick(day: Date) {
+    day.setHours(day.getHours() + 4);
     setOpenedTrainingDate(day);
     console.log(day);
   }
