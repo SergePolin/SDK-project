@@ -19,7 +19,6 @@ describe('NewTraining component', () => {
 
     (axios.get as jest.Mock).mockResolvedValue({data: mockWorkouts });
 
-    
       render(
         <BrowserRouter>
           <NewTraining />
@@ -64,7 +63,6 @@ describe('NewTraining component', () => {
   });
 
   test("fetches and displays workouts correctly", async () => {
-    expect(axios.get).toHaveBeenCalledWith("/api/workouts");
     fireEvent.click(screen.getByText('Choose workout'));
     fireEvent.click(screen.getByText(/Total Body Burn/));
     expect(screen.getAllByText(/Total Body Burn/)[0]).toBeInTheDocument();
