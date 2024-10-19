@@ -1,0 +1,3 @@
+[submodule "mock-sdk"]
+	path = mock-sdk
+	url = https://github.com/SergePolin/mock-sdk
