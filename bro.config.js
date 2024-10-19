@@ -33,6 +33,7 @@ module.exports = {
     },
   },
   config: {
-    "sdk.api": "/api",
+    // "sdk.api": "/api",
+    "sdk.api": "http://mocksdk.eastus.azurecontainer.io/api",
   },
 };
